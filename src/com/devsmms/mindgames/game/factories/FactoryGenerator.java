@@ -1,9 +1,9 @@
 package com.devsmms.mindgames.game.factories;
 
-import com.devsmms.mindgames.game.Types;
+import com.devsmms.mindgames.game.enums.GameTypes;
 
 public class FactoryGenerator {
-    public static GameFactory getGameFactory(Types type) {
+    public static GameFactory getGameFactory(GameTypes type) {
         switch (type) {
             case CHECKERS:
                 return new CheckersGameFactory();

@@ -9,5 +9,6 @@ public class GoTable extends GameTable {
 		this.table = new Piece[19][19];
 	}
 
-	
+    public static final String intersection = "☩";
+
 }
