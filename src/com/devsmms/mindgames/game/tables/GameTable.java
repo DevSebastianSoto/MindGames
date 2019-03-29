@@ -1,4 +1,5 @@
 package com.devsmms.mindgames.game.tables;
 
-public class GameTable {
+public abstract class GameTable {
+	protected Piece table [][];
 }
