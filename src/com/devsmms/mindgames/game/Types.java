@@ -1,4 +1,4 @@
-package com.devsmms.mindgames.game.types;
+package com.devsmms.mindgames.game;
 
 public enum Types {
 	GO,
