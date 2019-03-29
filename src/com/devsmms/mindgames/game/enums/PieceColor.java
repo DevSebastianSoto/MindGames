@@ -1,4 +1,4 @@
-package com.devsmms.mindgames.game.pieces;
+package com.devsmms.mindgames.game.enums;
 
 public enum PieceColor {
     BLACK,
