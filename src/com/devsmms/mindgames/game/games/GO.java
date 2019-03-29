@@ -1,6 +1,6 @@
 package com.devsmms.mindgames.game.games;
 
-import com.mindgames.game.start.OrientalGames;
+import com.devsmms.mindgames.game.start.OrientalGames;
 
 public class GO extends OrientalGames{
 

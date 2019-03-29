@@ -1,6 +1,6 @@
 package com.devsmms.mindgames.game.games;
 
-import com.mindgames.game.start.OccidentalGames;
+import com.devsmms.mindgames.game.start.OccidentalGames;
 
 public class Checkers extends OccidentalGames{
 

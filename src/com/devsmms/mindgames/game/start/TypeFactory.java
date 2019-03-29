@@ -1,9 +1,9 @@
 package com.devsmms.mindgames.game.start;
 
-import com.mindgames.game.games.Checkers;
-import com.mindgames.game.games.Chess;
-import com.mindgames.game.games.GO;
-import com.mindgames.game.types.Types;
+import com.devsmms.mindgames.game.games.Checkers;
+import com.devsmms.mindgames.game.games.Chess;
+import com.devsmms.mindgames.game.games.GO;
+import com.devsmms.mindgames.game.types.Types;
 
 public class TypeFactory {
 	
