@@ -1,4 +1,4 @@
-package com.devssm.mindgames.game.start;
+package com.devsmms.mindgames.game.start;
 
 import com.mindgames.game.games.Checkers;
 import com.mindgames.game.games.Chess;

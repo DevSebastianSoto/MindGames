@@ -1,4 +1,4 @@
-package com.devssm;
+package com.devsmms;
 
 public class Main {
 

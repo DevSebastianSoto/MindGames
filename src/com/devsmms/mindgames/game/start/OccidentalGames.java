@@ -1,4 +1,4 @@
-package com.devssm.mindgames.game.start;
+package com.devsmms.mindgames.game.start;
 
 public abstract class OccidentalGames extends StartManager{
 	

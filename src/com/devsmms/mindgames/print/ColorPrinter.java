@@ -1,4 +1,4 @@
-package com.devssm.mindgames.print;
+package com.devsmms.mindgames.print;
 
 public class ColorPrinter {
 

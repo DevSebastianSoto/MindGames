@@ -1,4 +1,4 @@
-package com.devssm.mindgames.game.games;
+package com.devsmms.mindgames.game.games;
 
 import com.mindgames.game.start.OrientalGames;
 
