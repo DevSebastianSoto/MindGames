@@ -1,6 +1,6 @@
-package com.devsmms.mindgames.game.start;
+package com.devsmms.mindgames.game.management;
 
-public abstract class OccidentalGames extends StartManager{
+public abstract class OccidentalGames extends GameManager{
 	
 	@Override
 	protected void initializeGameComponents() {

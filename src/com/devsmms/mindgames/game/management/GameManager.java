@@ -1,6 +1,6 @@
-package com.devsmms.mindgames.game.start;
+package com.devsmms.mindgames.game.management;
 
-public abstract class StartManager {
+public abstract class GameManager {
 
 	public void gameStart() {
 
