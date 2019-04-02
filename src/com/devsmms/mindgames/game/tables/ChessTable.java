@@ -15,5 +15,12 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		
 	}
 
+	@Override
+	public void initTableWithPieces() { 
+		//Falta implementar, ver la de checkers por referencia
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

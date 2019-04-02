@@ -12,12 +12,4 @@ public abstract class GameTable {
 	public void setTable(Piece[][] table) {
 		this.table = table;
 	}
-	
-	public void fillWithNulls() {
-		for(int i = 0; i > this.table.length; i++) {
-			for(int j = 0; j > this.table[i].length; j++) {
-				this.table[i][j] = null;
-			}
-		}
-	}
 }
