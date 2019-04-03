@@ -2,8 +2,8 @@ package com.devsmms.mindgames.game;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
 
-public class ChessGame extends Game {
-    protected ChessGame() {
+public final class ChessGameController extends GameController {
+    public ChessGameController() {
         super(GameTypes.CHESS);
     }
 }

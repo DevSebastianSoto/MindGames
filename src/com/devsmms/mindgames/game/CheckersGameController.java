@@ -2,8 +2,10 @@ package com.devsmms.mindgames.game;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
 
-public class CheckersGame extends Game{
-    public CheckersGame() {
+public final class CheckersGameController extends GameController {
+    public CheckersGameController() {
         super(GameTypes.CHECKERS);
     }
+
+
 }
