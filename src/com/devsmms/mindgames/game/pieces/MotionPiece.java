@@ -1,5 +1,5 @@
 package com.devsmms.mindgames.game.pieces;
 
 public interface MotionPiece {
-    int [][] calcMove();
+    int [][] calcMove (int coordX, int coordY);
 }
