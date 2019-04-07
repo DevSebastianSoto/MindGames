@@ -2,7 +2,7 @@ package com.devsmms.mindgames.game.factories;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
 
-public class FactoryGenerator {
+public class GameFactoryGenerator {
     public static GameFactory getGameFactory(GameTypes type) {
         switch (type) {
             case CHECKERS:

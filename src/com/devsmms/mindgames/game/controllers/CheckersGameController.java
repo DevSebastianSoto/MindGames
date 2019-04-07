@@ -6,6 +6,4 @@ public final class CheckersGameController extends GameController {
     public CheckersGameController() {
         super(GameTypes.CHECKERS);
     }
-
-
 }
