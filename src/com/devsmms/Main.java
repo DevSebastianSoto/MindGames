@@ -1,12 +1,12 @@
 package com.devsmms;
 
-import com.devsmms.mindgames.print.console.Console;
+import com.devsmms.mindgames.ui.console.Console;
+import com.devsmms.mindgames.ui.enums.Menu;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-        Console c = Console.getInstance();
-        c.start();
+        System.out.println(Menu.BASIC_MOVE.getText());
 	}
 }

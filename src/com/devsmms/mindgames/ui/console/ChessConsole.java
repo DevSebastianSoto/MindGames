@@ -1,12 +1,14 @@
-package com.devsmms.mindgames.print.console;
+package com.devsmms.mindgames.ui.console;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
+import com.devsmms.mindgames.ui.enums.Menu;
 
-public class GoConsole extends GameConsole {
+public class ChessConsole extends GameConsole {
 
-    public GoConsole() {
-        super(GameTypes.GO);
+    public ChessConsole(){
+        super(GameTypes.CHESS);
     }
+
     @Override
     public GameTypes selectGame() {
         return null;
@@ -18,6 +20,7 @@ public class GoConsole extends GameConsole {
 
     @Override
     public void printTurnMenu() {
+        System.out.println(Menu.BASIC_TURN_OPTIONS);
     }
 
 }

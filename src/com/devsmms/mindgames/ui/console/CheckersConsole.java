@@ -1,6 +1,7 @@
-package com.devsmms.mindgames.print.console;
+package com.devsmms.mindgames.ui.console;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
+import com.devsmms.mindgames.ui.enums.Menu;
 
 public class CheckersConsole extends GameConsole {
     public CheckersConsole() {
@@ -14,16 +15,11 @@ public class CheckersConsole extends GameConsole {
 
     @Override
     public void printMainMenu() {
-        String menu = "";
-        menu += "+-----------------+\n";
-        menu += "| 1. Elegir Pieza |\n";
-        menu += "| 2. Salir        |\n";
-        menu += "+-----------------+\n";
-        menu += "Digite el número que corresponde a su juego deseado.";
-        System.out.println(menu);
+
     }
 
     @Override
     public void printTurnMenu() {
+        System.out.println(Menu.BASIC_TURN_OPTIONS);
     }
 }

@@ -1,7 +1,8 @@
-package com.devsmms.mindgames.print.console;
+package com.devsmms.mindgames.ui.console;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
-import com.devsmms.mindgames.print.factory.ConsoleFactory;
+import com.devsmms.mindgames.ui.enums.Menu;
+import com.devsmms.mindgames.ui.factory.ConsoleFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class Console {
         gc.printMainMenu();
     }
 
-    public void setGameConsole() {
+    private void setGameConsole() {
         GameTypes type;
         if (gc == null)
             type = selectGame();
@@ -42,14 +43,7 @@ public class Console {
     }
 
     private void printGameSelectionMenu() {
-        String menu = "";
-        menu += "+--------------+\n";
-        menu += "| 1. Checkers  |\n";
-        menu += "| 2. Chess     |\n";
-        menu += "| 3. Go        |\n";
-        menu += "+--------------+\n";
-        menu += "Digite el número que corresponde a su juego deseado.";
-        System.out.println(menu);
+        System.out.println(Menu.SET_GAME_OPTIONS);
     }
 
     private GameTypes selectGame() {

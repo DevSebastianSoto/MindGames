@@ -1,4 +1,4 @@
-package com.devsmms.mindgames.print.console;
+package com.devsmms.mindgames.ui.console;
 
 import com.devsmms.mindgames.game.controllers.GameController;
 import com.devsmms.mindgames.game.enums.GameTypes;
