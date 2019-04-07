@@ -1,8 +1,8 @@
 package com.devsmms.mindgames.print;
 
-import com.devsmms.mindgames.game.GameController;
+import com.devsmms.mindgames.game.controllers.GameController;
 import com.devsmms.mindgames.game.enums.GameTypes;
-import com.devsmms.mindgames.print.factory.GameControllerFactory;
+import com.devsmms.mindgames.game.factories.GameControllerFactory;
 
 public abstract class GameConsole {
 

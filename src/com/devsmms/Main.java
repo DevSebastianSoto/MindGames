@@ -1,6 +1,6 @@
 package com.devsmms;
 
-import com.devsmms.mindgames.game.CheckersGameController;
+import com.devsmms.mindgames.game.controllers.CheckersGameController;
 
 public class Main {
 

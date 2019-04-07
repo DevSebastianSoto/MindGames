@@ -1,9 +1,9 @@
-package com.devsmms.mindgames.print.factory;
+package com.devsmms.mindgames.game.factories;
 
-import com.devsmms.mindgames.game.CheckersGameController;
-import com.devsmms.mindgames.game.ChessGameController;
-import com.devsmms.mindgames.game.GameController;
-import com.devsmms.mindgames.game.GoGameController;
+import com.devsmms.mindgames.game.controllers.CheckersGameController;
+import com.devsmms.mindgames.game.controllers.ChessGameController;
+import com.devsmms.mindgames.game.controllers.GameController;
+import com.devsmms.mindgames.game.controllers.GoGameController;
 import com.devsmms.mindgames.game.enums.GameTypes;
 
 public class GameControllerFactory {
