@@ -14,6 +14,7 @@ public class King extends Piece implements MotionPiece {
 	
     @Override
     public int[][] calcMove (int coordX, int coordY) {
-        return new int[0][];
+    	int[][] answer = {{0,1},{0,-1},{1,0},{-1,0}};
+        return answer;
     }
 }
