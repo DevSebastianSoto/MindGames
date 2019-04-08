@@ -1,26 +1,124 @@
 package com.devsmms.mindgames.game.tables;
 
+import com.devsmms.mindgames.game.enums.PieceColor;
 import com.devsmms.mindgames.game.pieces.Piece;
+import com.devsmms.mindgames.game.pieces.chess.Bishop;
+import com.devsmms.mindgames.game.pieces.chess.King;
+import com.devsmms.mindgames.game.pieces.chess.Knight;
+import com.devsmms.mindgames.game.pieces.chess.Pawn;
+import com.devsmms.mindgames.game.pieces.chess.Queen;
+import com.devsmms.mindgames.game.pieces.chess.Rook;
 
 public class ChessTable extends GameTable implements MotionPieceTable {
 
-	
 	public ChessTable() {
 		this.table = new Piece[8][8];
 	}
-	
+
 	@Override
 	public void suggestMove() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void initTableWithPieces() { 
-		//Falta implementar, ver la de checkers por referencia
-		// TODO Auto-generated method stub
-		
-	}
+	public void initTableWithPieces() {
+		Piece BlackKing = new King(PieceColor.BLACK);
+		Piece BlackQueen = new Queen(PieceColor.BLACK);
 
-	
+		Piece BlackKnight1 = new Knight(PieceColor.BLACK);
+		Piece BlackKnight2 = new Knight(PieceColor.BLACK);
+
+		Piece BlackBishop1 = new Bishop(PieceColor.BLACK);
+		Piece BlackBishop2 = new Bishop(PieceColor.BLACK);
+
+		Piece BlackRook1 = new Rook(PieceColor.BLACK);
+		Piece BlackRook2 = new Rook(PieceColor.BLACK);
+
+		Piece BlackPawn1 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn2 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn3 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn4 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn5 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn6 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn7 = new Pawn(PieceColor.BLACK);
+		Piece BlackPawn8 = new Pawn(PieceColor.BLACK);
+
+		// Black Rook Positioning
+		this.table[0][0] = BlackRook1;
+		this.table[0][7] = BlackRook2;
+
+		// Black Knight Positioning
+		this.table[0][1] = BlackKnight1;
+		this.table[0][6] = BlackKnight2;
+
+		// Black Bishop Positioning
+		this.table[0][2] = BlackBishop1;
+		this.table[0][5] = BlackBishop2;
+
+		// Black Queen Positioning
+		this.table[0][3] = BlackQueen;
+
+		// Black King Positioning
+		this.table[0][4] = BlackKing;
+
+		// Black Pawn Positioning
+		this.table[1][0] = BlackPawn1;
+		this.table[1][1] = BlackPawn2;
+		this.table[1][2] = BlackPawn3;
+		this.table[1][3] = BlackPawn4;
+		this.table[1][4] = BlackPawn5;
+		this.table[1][5] = BlackPawn6;
+		this.table[1][6] = BlackPawn7;
+		this.table[1][7] = BlackPawn8;
+
+		Piece WhiteKing = new King(PieceColor.WHITE);
+		Piece WhiteQueen = new Queen(PieceColor.WHITE);
+
+		Piece WhiteKnight1 = new Knight(PieceColor.WHITE);
+		Piece WhiteKnight2 = new Knight(PieceColor.WHITE);
+
+		Piece WhiteBishop1 = new Bishop(PieceColor.WHITE);
+		Piece WhiteBishop2 = new Bishop(PieceColor.WHITE);
+
+		Piece WhiteRook1 = new Rook(PieceColor.WHITE);
+		Piece WhiteRook2 = new Rook(PieceColor.WHITE);
+
+		Piece WhitePawn1 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn2 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn3 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn4 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn5 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn6 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn7 = new Pawn(PieceColor.WHITE);
+		Piece WhitePawn8 = new Pawn(PieceColor.WHITE);
+
+		// White Rook positioning
+		this.table[0][0] = WhiteRook1;
+		this.table[0][7] = WhiteRook2;
+
+		// White Knight Positioning
+		this.table[7][1] = WhiteKnight1;
+		this.table[7][6] = WhiteKnight2;
+
+		// Black Bishop Positioning
+		this.table[7][2] = WhiteBishop1;
+		this.table[7][5] = WhiteBishop2;
+
+		// White Queen Positioning
+		this.table[7][3] = WhiteQueen;
+
+		// White King Positioning
+		this.table[7][4] = WhiteKing;
+
+		// White Pawn Positioning
+		this.table[6][0] = WhitePawn1;
+		this.table[6][1] = WhitePawn2;
+		this.table[6][2] = WhitePawn3;
+		this.table[6][3] = WhitePawn4;
+		this.table[6][4] = WhitePawn5;
+		this.table[6][5] = WhitePawn6;
+		this.table[6][6] = WhitePawn7;
+		this.table[6][7] = WhitePawn8;
+	}
 }
