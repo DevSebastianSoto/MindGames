@@ -14,6 +14,7 @@ public class Knight extends Piece implements MotionPiece {
 	
     @Override
     public int[][] calcMove (int coordX, int coordY) {
-        return new int[0][];
+    	int[][] answer = {{2,1}, {2,-1}, {-2,1}, {-2,-1}, {1,2}, {-1,2}, {1,-2}, {-1,-2}};
+        return answer;
     }
 }
