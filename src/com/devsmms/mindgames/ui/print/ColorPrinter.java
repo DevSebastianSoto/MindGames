@@ -1,4 +1,6 @@
-package com.devsmms.mindgames.print;
+package com.devsmms.mindgames.ui.print;
+
+import com.devsmms.mindgames.ui.enums.Color;
 
 public class ColorPrinter {
 

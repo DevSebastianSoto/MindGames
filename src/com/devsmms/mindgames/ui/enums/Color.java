@@ -1,4 +1,4 @@
-package com.devsmms.mindgames.print;
+package com.devsmms.mindgames.ui.enums;
 
 public enum Color {
     BLUE(34),
