@@ -34,4 +34,9 @@ public abstract class GameController {
 
     public GamePlayer getWinner() { return winner; }
 
+    public void setUpPlayers(String p1, String p2){
+        this.p1.setName(p1);
+        this.p2.setName(p2);
+    }
+
 }

@@ -10,31 +10,21 @@ import java.io.InputStreamReader;
 
 public class Console {
     private static Console console = null;
-    private static BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+    public static BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
     private GameConsole gc;
 
     private Console() {
         gc = null;
     }
 
-    public static Console getInstance() {
-        if (console == null)
-            console = new Console();
-        return console;
-    }
-
     public void start() {
         printGreetings();
         setGameConsole();
-        gc.printMainMenu();
+        gc.selectMainMenuOption();
     }
 
     private void setGameConsole() {
-        GameTypes type;
-        if (gc == null)
-            type = selectGame();
-        else
-            type = gc.selectGame();
+        GameTypes type = selectGame();
         gc = ConsoleFactory.getConsole(type);
     }
 
@@ -43,7 +33,7 @@ public class Console {
     }
 
     private void printGameSelectionMenu() {
-        System.out.println(Menu.SET_GAME_OPTIONS);
+        System.out.println(Menu.SET_GAME_OPTIONS.getText());
     }
 
     private GameTypes selectGame() {
@@ -74,6 +64,12 @@ public class Console {
             }
         }
         return type;
+    }
+
+    public static Console getInstance() {
+        if (console == null)
+            console = new Console();
+        return console;
     }
 
 }

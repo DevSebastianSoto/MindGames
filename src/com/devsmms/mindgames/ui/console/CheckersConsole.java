@@ -1,6 +1,7 @@
 package com.devsmms.mindgames.ui.console;
 
 import com.devsmms.mindgames.game.enums.GameTypes;
+import com.devsmms.mindgames.game.players.GamePlayer;
 import com.devsmms.mindgames.ui.enums.Menu;
 
 public class CheckersConsole extends GameConsole {
@@ -9,17 +10,23 @@ public class CheckersConsole extends GameConsole {
     }
 
     @Override
-    public GameTypes selectGame() {
-        return null;
+    public boolean play() {
+        return false;
     }
 
     @Override
-    public void printMainMenu() {
-
+    protected void printGreeting() {
+        System.out.println("Bienvenido a Checkers");
     }
 
     @Override
-    public void printTurnMenu() {
-        System.out.println(Menu.BASIC_TURN_OPTIONS);
+    public void selectTurnMenuOption(GamePlayer player) {
+
+    }
+
+
+    @Override
+    protected void printTurnMenu() {
+
     }
 }

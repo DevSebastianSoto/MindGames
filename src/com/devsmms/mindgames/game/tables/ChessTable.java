@@ -13,6 +13,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 
 	public ChessTable() {
 		this.table = new Piece[8][8];
+		initTableWithPieces();
 	}
 
 	@Override

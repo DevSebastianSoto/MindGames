@@ -8,6 +8,7 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
 
 	public CheckersTable() {
 		this.table = new Piece[10][10];
+		initTableWithPieces();
 	}
 
 	@Override

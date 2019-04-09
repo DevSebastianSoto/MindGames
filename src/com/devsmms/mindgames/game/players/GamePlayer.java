@@ -1,14 +1,14 @@
 package com.devsmms.mindgames.game.players;
 
 public class GamePlayer {
-	protected String Nombre;
+	protected String name;
 
-	public String getNombre() {
-		return Nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
