@@ -6,6 +6,7 @@ import com.devsmms.mindgames.game.players.GamePlayer;
 import com.devsmms.mindgames.ui.enums.Color;
 import com.devsmms.mindgames.ui.enums.Menu;
 import com.devsmms.mindgames.ui.print.ColorPrinter;
+import com.devsmms.mindgames.ui.print.MotionPieceTablePrinter;
 
 import java.io.IOException;
 
@@ -39,7 +40,6 @@ public class ChessConsole extends GameConsole {
 
     @Override
     public void printTable() {
-        Piece[][] table = this.controller.getGameTable().getTable();
-
+        MotionPieceTablePrinter.printTable(controller.getGameTable().getTable(),rowName,colName,numberHighlighter,black,white);
     }
 }

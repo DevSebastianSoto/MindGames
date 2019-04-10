@@ -95,8 +95,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		Piece WhitePawn8 = new Pawn(PieceColor.WHITE);
 
 		// White Rook positioning
-		this.table[0][0] = WhiteRook1;
-		this.table[0][7] = WhiteRook2;
+		this.table[7][0] = WhiteRook1;
+		this.table[7][7] = WhiteRook2;
 
 		// White Knight Positioning
 		this.table[7][1] = WhiteKnight1;

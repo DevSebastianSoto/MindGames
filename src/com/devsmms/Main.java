@@ -9,9 +9,9 @@ import com.devsmms.mindgames.ui.print.ColorPrinter;
 public class Main {
 
 	public static void main(String[] args) {
-//		Console c = Console.getInstance();
-//		c.start();
-		CheckersConsole cc = new CheckersConsole();
-		cc.printTable();
+		Console c = Console.getInstance();
+		c.start();
+//		CheckersConsole cc = new CheckersConsole();
+//		cc.printTable();
 	}
 }
