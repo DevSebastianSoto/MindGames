@@ -3,14 +3,18 @@ package com.devsmms.mindgames.ui.console;
 import com.devsmms.mindgames.game.enums.GameTypes;
 import com.devsmms.mindgames.ui.enums.Menu;
 import com.devsmms.mindgames.ui.factory.ConsoleFactory;
+import com.devsmms.mindgames.ui.print.ColorPrinter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Console {
-    private static Console console = null;
+
+    private final String GREETINGS = "Bienvenido a Mind Games, el mejor centro virtual de juegos de mesa.";
+
     public static BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+    private static Console console = null;
     private GameConsole gc;
 
     private Console() {
@@ -18,18 +22,10 @@ public class Console {
     }
 
     public void start() {
-        printGreetings();
-        setGameConsole();
-        gc.selectMainMenuOption();
-    }
-
-    private void setGameConsole() {
+        System.out.println(GREETINGS);
         GameTypes type = selectGame();
         gc = ConsoleFactory.getConsole(type);
-    }
-
-    private void printGreetings(){
-        System.out.println("Bienvenido a Mind Games, el mejor centro virtual de juegos de mesa.");
+        gc.selectMainMenuOption();
     }
 
     private void printGameSelectionMenu() {

@@ -13,8 +13,8 @@ public class ColorPrinter {
 
     private ColorPrinter(boolean bright, Color bg_color, Color text_color) {
         this.END = (bright)?";1m":"m";
-        this.bg_color = START+bg_color.getBackGroundValue()+END;
-        this.text_color = START+text_color.getTextValue()+END;
+        this.bg_color = (bg_color != null)?START+bg_color.getBackGroundValue()+END:"";
+        this.text_color = (text_color != null)?START+text_color.getTextValue()+END:"";
     }
     
     public String getFormattedString(String text){
