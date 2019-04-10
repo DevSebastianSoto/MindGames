@@ -13,24 +13,47 @@ import java.io.IOException;
 
 public abstract class GameConsole {
 
+    protected final int[] rowName;
+    protected final char[] colName;
     protected final String GREETING;
-    protected GameController controller;
-
-    protected final Color black, white, background;
+    protected final Color black, white;
     protected final ColorPrinter textHighlighter;
     protected final ColorPrinter numberHighlighter;
+
+    protected GameController controller;
     private boolean running;
     private int turnCounter;
+
 
     GameConsole(GameTypes type, String greeting) {
         controller = GameControllerFactory.getGameController(type);
         this.GREETING = greeting;
         this.turnCounter = 0;
-        this.black = Color.MAGENTA;
-        this.white = Color.YELLOW;
-        this.background = Color.BLUE;
+        this.black = Color.BLUE;
+        this.white = Color.RED;
+
+//        Setup ColorPrinters
         this.textHighlighter = (new ColorPrinter.PrinterBuilder()).withBrightness(false).withTextColor(Color.CYAN).build();
         this.numberHighlighter = (new ColorPrinter.PrinterBuilder()).withBrightness(true).withTextColor(Color.MAGENTA).build();
+
+        int dim = controller.getGameTable().getTable().length;
+        rowName = new int[dim];
+        colName = new char[dim];
+        initRowNumbers();
+        initColNames();
+    }
+
+    private void initRowNumbers() {
+        for (int i = rowName.length - 1; i >= 0; i--) {
+            rowName[(i - (rowName.length - 1)) * -1] = i + 1;
+        }
+    }
+
+    private void initColNames() {
+        int unicode = 0x41;
+        for (int i = 0; i < colName.length; i++) {
+            colName[i] = (char) (unicode + i);
+        }
     }
 
     private void printMainMenu() {
@@ -73,10 +96,10 @@ public abstract class GameConsole {
     protected void setUpPlayers() {
         try {
             String p1, p2;
-            System.out.println(textHighlighter.getFormattedString("Primer")+" jugador:");
+            System.out.println(textHighlighter.getFormattedString("Primer") + " jugador:");
             System.out.println(Menu.SET_PLAYER_NAME.getText());
             p1 = Console.leer.readLine();
-            System.out.println(textHighlighter.getFormattedString("Segundo")+" jugador:");
+            System.out.println(textHighlighter.getFormattedString("Segundo") + " jugador:");
             System.out.println(Menu.SET_PLAYER_NAME.getText());
             p2 = Console.leer.readLine();
             controller.setUpPlayers(p1, p2);
@@ -98,8 +121,8 @@ public abstract class GameConsole {
     protected void displayTurnDefaulInformation(String playerName) {
         printTable();
         System.out.println("Es el turno de:\t" +
-                textHighlighter.getFormattedString(playerName)+
-                "\tTurno: "+numberHighlighter.getFormattedString(String.valueOf(turnCounter)));
+                textHighlighter.getFormattedString(playerName) +
+                "\tTurno: " + numberHighlighter.getFormattedString(String.valueOf(turnCounter)));
         printTurnMenu();
     }
 

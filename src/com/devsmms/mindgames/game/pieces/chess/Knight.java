@@ -9,7 +9,7 @@ public class Knight extends Piece implements MotionPiece {
 	
 	public Knight(PieceColor color){
         this.color = color;
-        this.icon = PieceIcons.KNIGHT.getTabbedIcon();
+        this.icon = PieceIcons.KNIGHT;
     }
 	
     @Override

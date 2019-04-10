@@ -9,7 +9,7 @@ public class Rook extends Piece implements MotionPiece {
 	
 	public Rook(PieceColor color){
         this.color = color;
-        this.icon = PieceIcons.ROOK.getTabbedIcon();
+        this.icon = PieceIcons.ROOK;
     }
 	
     @Override

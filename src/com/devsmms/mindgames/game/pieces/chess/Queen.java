@@ -9,7 +9,7 @@ public class Queen extends Piece implements MotionPiece {
 	
 	public Queen(PieceColor color){
         this.color = color;
-        this.icon = PieceIcons.QUEEN.getTabbedIcon();
+        this.icon = PieceIcons.QUEEN;
     }
 	
     @Override

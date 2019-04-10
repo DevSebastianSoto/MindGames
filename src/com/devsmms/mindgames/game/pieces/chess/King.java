@@ -9,7 +9,7 @@ public class King extends Piece implements MotionPiece {
 	
 	public King(PieceColor color){
         this.color = color;
-        this.icon = PieceIcons.KING.getTabbedIcon();
+        this.icon = PieceIcons.KING;
     }
 	
     @Override

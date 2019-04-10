@@ -9,7 +9,7 @@ public class Pawn extends Piece implements MotionPiece {
 	
 	public Pawn(PieceColor color){
         this.color = color;
-        this.icon = PieceIcons.PAWN.getTabbedIcon();
+        this.icon = PieceIcons.PAWN;
     }
 	
     @Override

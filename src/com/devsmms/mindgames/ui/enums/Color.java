@@ -1,12 +1,14 @@
 package com.devsmms.mindgames.ui.enums;
 
 public enum Color {
-    BLUE(34),
-    CYAN(36),
+    BLACK(30),
     RED(31),
-    YELLOW(33),
-    MAGENTA(35),
     GREEN(32),
+    YELLOW(33),
+    BLUE(34),
+    MAGENTA(35),
+    CYAN(36),
+    WHITE(37),
     RESET(0);
 
     private final int value;

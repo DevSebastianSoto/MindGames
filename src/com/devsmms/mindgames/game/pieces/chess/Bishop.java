@@ -9,7 +9,7 @@ public class Bishop extends Piece implements MotionPiece {
 
     public Bishop(PieceColor color){
         this.color = color;
-        this.icon = PieceIcons.BISHOP.getTabbedIcon();
+        this.icon = PieceIcons.BISHOP;
     }
 
     @Override
