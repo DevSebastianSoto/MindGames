@@ -8,8 +8,9 @@ public class CheckersPiece extends Piece implements MotionPiece {
         this.icon = PieceIcons.CHECKERS_NORMAL;
     }
 
-    @Override
-    public int[][] calcMove (int coordX, int coordY) {
-        return new int[0][];
-    }
+	@Override
+	public int[][] calcMove(int coordX, int coordY) {
+		int[][] answer = { { 1, 1 }, { 2, 2 }, { 1, -1 }, { 2, -2 } };
+		return answer;
+	}
 }
