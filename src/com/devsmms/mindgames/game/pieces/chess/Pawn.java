@@ -14,8 +14,7 @@ public class Pawn extends Piece implements MotionPiece {
 	
     @Override
     public int[][] calcMove (int coordX, int coordY) {
-    	int[][] answer = {{0,1},{0,2},{1,1}, {1,-1}};
-    	//ToDo en el caso de 0,2 el tablero valida si es la primer vez que se mueve el peon
+    	int[][] answer = {{1,0},{2,0},{1,1}, {1,-1}};
         return answer;
     }
 }
