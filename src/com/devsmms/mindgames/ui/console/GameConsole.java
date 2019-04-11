@@ -28,7 +28,7 @@ public abstract class GameConsole {
     GameConsole(GameTypes type, String greeting) {
         controller = GameControllerFactory.getGameController(type);
         this.GREETING = greeting;
-        this.turnCounter = 0;
+        this.turnCounter = 1;
         this.black = Color.BLUE;
         this.white = Color.RED;
 
