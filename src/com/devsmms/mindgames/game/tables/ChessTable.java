@@ -20,8 +20,19 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	@Override
-	public void suggestMove() {
-		// TODO Auto-generated method stub
+	public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		
+		switch (getTablePiece(x,y).getIcon()){
+		
+		case PAWN:
+			return pawnSuggestions(x , y);
+		
+		case KNIGHT:
+			return knightSuggestions(x, y);
+		default:
+			return matrix;
+		}
 
 	}
 
