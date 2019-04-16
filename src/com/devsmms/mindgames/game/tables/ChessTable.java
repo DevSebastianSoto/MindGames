@@ -1,5 +1,7 @@
 package com.devsmms.mindgames.game.tables;
 
+import java.util.ArrayList;
+
 import com.devsmms.mindgames.game.enums.PieceColor;
 import com.devsmms.mindgames.game.pieces.Piece;
 import com.devsmms.mindgames.game.pieces.chess.Bishop;
@@ -8,6 +10,7 @@ import com.devsmms.mindgames.game.pieces.chess.Knight;
 import com.devsmms.mindgames.game.pieces.chess.Pawn;
 import com.devsmms.mindgames.game.pieces.chess.Queen;
 import com.devsmms.mindgames.game.pieces.chess.Rook;
+import com.devsmms.mindgames.ui.enums.Color;
 
 public class ChessTable extends GameTable implements MotionPieceTable {
 
@@ -20,6 +23,100 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	public void suggestMove() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean isPiece(int x, int y) {
+		if (this.table[x][y] != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Piece getTablePiece(int x, int y) {
+		return this.table[x][y];
+	}
+
+	public ArrayList<ArrayList<Integer>> pawnSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Pawn) getTablePiece(x, y)).calcMove();
+
+			
+
+			if (getTablePiece(x, y).getColor() == PieceColor.BLACK) {
+				for (int i = 0; i < moves.length; i++) {
+					if (pawnBlackMoves(moves[i], x, y)) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+					}
+				}
+				return matrix;
+			} else {
+				for (int i = 0; i < moves.length; i++) {
+					if (pawnWhiteMoves(moves[i], x, y)) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+					}
+				}
+				return matrix;
+			}
+
+		}else {
+			return matrix;
+		}
+	}
+
+	public boolean pawnBlackMoves(int[] pos, int x, int y) { // No esta terminado.
+		if (x + pos[0] >= 8 || x + pos[0] < 0) {
+			if (y + pos[1] >= 8 || y + pos[1] < 0) {
+				if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+					if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
+						return false;
+					} else {
+						// aqui va capturar;
+					}
+				}
+				if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
+					return false;
+				} else {
+					return true;
+				}
+
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public boolean pawnWhiteMoves(int[] pos, int x, int y) { // No esta terminado.
+		if (x + pos[0] >= 8 || x + pos[0] < 0) {
+			if (y + pos[1] >= 8 || y + pos[1] < 0) {
+				if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+					if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK) {
+						return false;
+					} else {
+						// aqui va capturar;
+					}
+				}
+				if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
+					return false;
+				} else {
+					return true;
+				}
+
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override
