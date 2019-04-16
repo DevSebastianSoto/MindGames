@@ -50,8 +50,40 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public ArrayList<ArrayList<Integer>> knightSuggestions(int x, int y) {
-		return null;
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
 
+			for (int i = 0; i < moves.length; i++) {
+				if (knightMoves(moves[i], x, y)) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				}
+			}
+			return matrix;
+		}else {
+			return matrix;
+		}
+
+	}
+
+	public boolean knightMoves(int[] pos, int x, int y) {
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return false;
+				} else {
+					// capturar;
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	public ArrayList<ArrayList<Integer>> pawnSuggestions(int x, int y) {
@@ -93,6 +125,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 					return false;
 				} else {
 					// aqui va capturar;
+					return true;
 				}
 			}
 			if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
@@ -100,7 +133,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			} else {
 				return true;
 			}
-		}else {
+		} else {
 			return false;
 		}
 
@@ -120,7 +153,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			} else {
 				return true;
 			}
-		}else {
+		} else {
 			return false;
 		}
 	}
