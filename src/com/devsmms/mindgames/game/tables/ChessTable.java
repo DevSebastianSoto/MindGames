@@ -37,12 +37,27 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		return this.table[x][y];
 	}
 
+	public boolean rangeOfTable(int[] pos, int x, int y) {
+		if (x + pos[0] >= 8 || x + pos[0] < 0) {
+			if (y + pos[1] >= 8 || y + pos[1] < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public ArrayList<ArrayList<Integer>> knightSuggestions(int x, int y) {
+		return null;
+
+	}
+
 	public ArrayList<ArrayList<Integer>> pawnSuggestions(int x, int y) {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
 			int[][] moves = ((Pawn) getTablePiece(x, y)).calcMove();
-
-			
 
 			if (getTablePiece(x, y).getColor() == PieceColor.BLACK) {
 				for (int i = 0; i < moves.length; i++) {
@@ -66,55 +81,46 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				return matrix;
 			}
 
-		}else {
+		} else {
 			return matrix;
 		}
 	}
 
 	public boolean pawnBlackMoves(int[] pos, int x, int y) { // No esta terminado.
-		if (x + pos[0] >= 8 || x + pos[0] < 0) {
-			if (y + pos[1] >= 8 || y + pos[1] < 0) {
-				if (getTablePiece(x + pos[0], y + pos[1]) != null) {
-					if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
-						return false;
-					} else {
-						// aqui va capturar;
-					}
-				}
-				if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
 					return false;
 				} else {
-					return true;
+					// aqui va capturar;
 				}
-
-			} else {
-				return false;
 			}
-		} else {
+			if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
+				return false;
+			} else {
+				return true;
+			}
+		}else {
 			return false;
 		}
+
 	}
 
 	public boolean pawnWhiteMoves(int[] pos, int x, int y) { // No esta terminado.
-		if (x + pos[0] >= 8 || x + pos[0] < 0) {
-			if (y + pos[1] >= 8 || y + pos[1] < 0) {
-				if (getTablePiece(x + pos[0], y + pos[1]) != null) {
-					if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK) {
-						return false;
-					} else {
-						// aqui va capturar;
-					}
-				}
-				if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK) {
 					return false;
 				} else {
-					return true;
+					// aqui va capturar;
 				}
-
-			} else {
-				return false;
 			}
-		} else {
+			if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
+				return false;
+			} else {
+				return true;
+			}
+		}else {
 			return false;
 		}
 	}
