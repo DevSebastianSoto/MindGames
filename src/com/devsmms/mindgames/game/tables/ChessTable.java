@@ -85,7 +85,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	public ArrayList<ArrayList<Integer>> kingSuggestions(int x, int y) {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
-			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
+			int[][] moves = ((King) getTablePiece(x, y)).calcMove();
 
 			for (int i = 0; i < moves.length; i++) {
 				if (kingMoves(moves[i], x, y)) {
