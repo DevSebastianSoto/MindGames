@@ -22,18 +22,20 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	@Override
 	public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
-		
-		switch (getTablePiece(x,y).getIcon()){
-		
+
+		switch (getTablePiece(x, y).getIcon()) {
+
 		case PAWN:
-			return pawnSuggestions(x , y);
-		
+			return pawnSuggestions(x, y);
+
 		case KNIGHT:
 			return knightSuggestions(x, y);
+			
+		case KING:
+			return kingSuggestions(x,y);
 		default:
 			return matrix;
 		}
-
 	}
 
 	public boolean isPiece(int x, int y) {
@@ -74,13 +76,50 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				}
 			}
 			return matrix;
-		}else {
+		} else {
 			return matrix;
 		}
 
 	}
 
-	public boolean knightMoves(int[] pos, int x, int y) {
+	public ArrayList<ArrayList<Integer>> kingSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (kingMoves(moves[i], x, y)) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+
+	public boolean knightMoves(int[] pos, int x, int y) { // falta capturar.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return false;
+				} else {
+					// capturar;
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public boolean kingMoves(int[] pos, int x, int y) {
 		if (rangeOfTable(pos, x, y)) {
 			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
 				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
@@ -129,7 +168,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		}
 	}
 
-	public boolean pawnBlackMoves(int[] pos, int x, int y) { // No esta terminado.
+	public boolean pawnBlackMoves(int[] pos, int x, int y) { // falta capturar.
 		if (rangeOfTable(pos, x, y)) {
 			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
 				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
@@ -150,7 +189,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 
 	}
 
-	public boolean pawnWhiteMoves(int[] pos, int x, int y) { // No esta terminado.
+	public boolean pawnWhiteMoves(int[] pos, int x, int y) { // falta capturar.
 		if (rangeOfTable(pos, x, y)) {
 			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
 				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK) {

@@ -1,5 +1,7 @@
 package com.devsmms.mindgames.game.tables;
 
+import java.util.ArrayList;
+
 import com.devsmms.mindgames.game.enums.PieceColor;
 import com.devsmms.mindgames.game.pieces.CheckersPiece;
 import com.devsmms.mindgames.game.pieces.Piece;
@@ -12,7 +14,8 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
 	}
 
 	@Override
-	public void suggestMove() {
+	public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
+		return null;
 		// TODO Auto-generated method stub
 
 	}
