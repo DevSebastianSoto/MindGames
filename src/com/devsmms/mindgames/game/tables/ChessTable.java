@@ -10,7 +10,6 @@ import com.devsmms.mindgames.game.pieces.chess.Knight;
 import com.devsmms.mindgames.game.pieces.chess.Pawn;
 import com.devsmms.mindgames.game.pieces.chess.Queen;
 import com.devsmms.mindgames.game.pieces.chess.Rook;
-import com.devsmms.mindgames.ui.enums.Color;
 
 public class ChessTable extends GameTable implements MotionPieceTable {
 
@@ -33,6 +32,9 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 
 		case KING:
 			return kingSuggestions(x, y);
+			
+		case QUEEN:
+			return queenSuggestions(x,y);
 			
 		case ROOK:
 			return rookSuggestions(x,y);
