@@ -30,9 +30,9 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 
 		case KNIGHT:
 			return knightSuggestions(x, y);
-			
+
 		case KING:
-			return kingSuggestions(x,y);
+			return kingSuggestions(x, y);
 		default:
 			return matrix;
 		}
@@ -62,6 +62,30 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		}
 	}
 
+	public int determineIndexForRookAndBishop(int i) {
+		if (i >= 0 && i <= 6) {
+			return 7;
+		} else {
+			if (i >= 7 && i <= 13) {
+				return 14;
+			} else {
+				if (i >= 14 && i <= 20) {
+					return 21;
+				} else {
+					if (i >= 21 && i <= 27) {
+						return -1;
+					} else {
+						return -1;
+					}
+				}
+			}
+		}
+	}
+	
+	public int DetermineIndexForQueen(int i) {
+		
+	}
+
 	public ArrayList<ArrayList<Integer>> knightSuggestions(int x, int y) {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
@@ -73,6 +97,43 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 					pos.add(x);
 					pos.add(y);
 					matrix.add(pos);
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+
+	public ArrayList<ArrayList<Integer>> rookSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (rookAndBishopMoves(moves[i], x, y) == 1) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				} else {
+					if (rookAndBishopMoves(moves[i], x, y) == 2) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+						
+						if (determineIndexForRookAndBishop(i) == -1) {
+							return matrix;
+						} else {
+							i = determineIndexForRookAndBishop(i);
+						}
+					} else {
+						if (rookAndBishopMoves(moves[i], x, y) == 0) {
+							return matrix;
+						}
+					}
 				}
 			}
 			return matrix;
@@ -100,40 +161,6 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			return matrix;
 		}
 
-	}
-
-	public boolean knightMoves(int[] pos, int x, int y) { // falta capturar.
-		if (rangeOfTable(pos, x, y)) {
-			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
-				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
-					return false;
-				} else {
-					// capturar;
-					return true;
-				}
-			} else {
-				return true;
-			}
-		} else {
-			return false;
-		}
-	}
-
-	public boolean kingMoves(int[] pos, int x, int y) {
-		if (rangeOfTable(pos, x, y)) {
-			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
-				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
-					return false;
-				} else {
-					// capturar;
-					return true;
-				}
-			} else {
-				return true;
-			}
-		} else {
-			return false;
-		}
 	}
 
 	public ArrayList<ArrayList<Integer>> pawnSuggestions(int x, int y) {
@@ -165,6 +192,57 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 
 		} else {
 			return matrix;
+		}
+	}
+
+	public boolean knightMoves(int[] pos, int x, int y) { // falta capturar.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return false;
+				} else {
+					// capturar;
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public int rookAndBishopMoves(int[] pos, int x, int y) {
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return 0;
+				} else {
+					// capturar;
+					return 2;
+				}
+			} else {
+				return 1;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public boolean kingMoves(int[] pos, int x, int y) {
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return false;
+				} else {
+					// capturar;
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			return false;
 		}
 	}
 
