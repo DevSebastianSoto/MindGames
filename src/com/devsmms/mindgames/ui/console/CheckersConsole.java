@@ -26,7 +26,6 @@ public class CheckersConsole extends GameConsole {
 
     @Override
     public void selectTurnMenuOption(GamePlayer player) {
-        displayTurnDefaulInformation(player.getName());
         try {
             Console.leer.readLine();
         } catch (IOException e) {

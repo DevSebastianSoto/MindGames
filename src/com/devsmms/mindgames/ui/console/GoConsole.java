@@ -22,7 +22,6 @@ public class GoConsole extends GameConsole {
 
     @Override
     public void selectTurnMenuOption(GamePlayer player) {
-        displayTurnDefaulInformation(player.getName());
         try {
             Console.leer.readLine();
         } catch (IOException e) {
@@ -32,7 +31,7 @@ public class GoConsole extends GameConsole {
 
     @Override
     protected void printTurnMenu() {
-        System.out.println("Jugador juega jugando checkers");
+        System.out.println(Menu.SELECT_PIECE.getText());
     }
 
     @Override

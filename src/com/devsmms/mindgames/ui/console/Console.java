@@ -28,14 +28,10 @@ public class Console {
         gc.selectMainMenuOption();
     }
 
-    private void printGameSelectionMenu() {
-        System.out.println(Menu.SET_GAME_OPTIONS.getText());
-    }
-
     private GameTypes selectGame() {
         GameTypes type = null;
         while (type == null) {
-            printGameSelectionMenu();
+            System.out.println(Menu.SET_GAME_OPTIONS.getText());
             try {
                 int opcion = Integer.parseInt(leer.readLine());
                 switch (opcion) {

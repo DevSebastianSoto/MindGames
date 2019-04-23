@@ -28,7 +28,7 @@ public abstract class GameConsole {
     GameConsole(GameTypes type, String greeting) {
         controller = GameControllerFactory.getGameController(type);
         this.GREETING = greeting;
-        this.turnCounter = 1;
+        this.turnCounter = 0;
         this.black = Color.BLUE;
         this.white = Color.RED;
 
@@ -56,14 +56,10 @@ public abstract class GameConsole {
         }
     }
 
-    private void printMainMenu() {
-        System.out.println(Menu.START_GAME_OPTIONS.getText());
-    }
-
     public void selectMainMenuOption() {
         boolean validOption = false;
         while (!validOption) {
-            printMainMenu();
+            System.out.println(Menu.START_GAME_OPTIONS.getText());
             try {
                 int option = Integer.parseInt(Console.leer.readLine());
                 switch (option) {
@@ -111,21 +107,22 @@ public abstract class GameConsole {
     public boolean play() {
         while (controller.getWinner() == null) {
             GamePlayer player = (turnCounter % 2 == 0) ? controller.getP1() : controller.getP2();
+            printTable();
+            displayTurnDefaulInformation(player.getName());
+            printTurnMenu();
             selectTurnMenuOption(player);
             turnCounter++;
-//            ToDo hacer play un template y optimizar este codigo
         }
         return true;
     }
 
     protected void displayTurnDefaulInformation(String playerName) {
-        printTable();
         System.out.println("Es el turno de:\t" +
                 textHighlighter.getFormattedString(playerName) +
-                "\tTurno: " + numberHighlighter.getFormattedString(String.valueOf(turnCounter)));
-        printTurnMenu();
+                "\tTurno: " + numberHighlighter.getFormattedString(String.valueOf(turnCounter+1)));
     }
 
+    /*En este momento se lee la opcion seleccionada y el juego actua de forma especifica al juego.*/
     public abstract void selectTurnMenuOption(GamePlayer player);
 
     protected abstract void printTurnMenu();

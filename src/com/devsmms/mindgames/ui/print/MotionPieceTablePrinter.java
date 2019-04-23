@@ -10,11 +10,12 @@ public class MotionPieceTablePrinter {
     private static final Color bgWhite = Color.WHITE;
     private static final Color bgBlack = Color.BLACK;
 
-    public static void printTable(Piece [][] tableMap,int [] rowName, char [] colName,ColorPrinter highlighter,Color black, Color white){
+    public static void printTable(Piece[][] tableMap, int[] rowName, char[] colName, ColorPrinter highlighter, Color black, Color white) {
         String tableView = "";
         for (int i = 0; i < tableMap.length; i++) {
             tableView += highlighter.getFormattedString(rowName[i] + "\t");
             for (int j = 0; j < tableMap[i].length; j++) {
+//                Sets the cell bg color
                 Color bg = (i % 2 == 0) ?
                         (j % 2 == 0) ?
                                 bgWhite :
@@ -39,9 +40,8 @@ public class MotionPieceTablePrinter {
             tableView += "\n";
         }
         tableView += "\t";
-        String line = "  ";
         for (int i = 0; i < colName.length; i++) {
-            tableView += highlighter.getFormattedString("\t"+colName[i] + "\t");
+            tableView += highlighter.getFormattedString("\t" + colName[i] + "\t");
         }
         System.out.println(tableView);
     }

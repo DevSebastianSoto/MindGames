@@ -25,7 +25,6 @@ public class ChessConsole extends GameConsole {
 
     @Override
     public void selectTurnMenuOption(GamePlayer player) {
-        displayTurnDefaulInformation(player.getName());
         try {
             Console.leer.readLine();
         } catch (IOException e) {
@@ -35,7 +34,7 @@ public class ChessConsole extends GameConsole {
 
     @Override
     protected void printTurnMenu() {
-        System.out.println("Jugador juega jugando chess");
+        System.out.println(Menu.SELECT_PIECE.getText());
     }
 
     @Override
