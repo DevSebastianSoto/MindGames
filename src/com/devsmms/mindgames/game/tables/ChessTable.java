@@ -1,5 +1,7 @@
 package com.devsmms.mindgames.game.tables;
 
+import java.util.ArrayList;
+
 import com.devsmms.mindgames.game.enums.PieceColor;
 import com.devsmms.mindgames.game.pieces.Piece;
 import com.devsmms.mindgames.game.pieces.chess.Bishop;
@@ -17,9 +19,386 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	@Override
-	public void suggestMove() {
-		// TODO Auto-generated method stub
+	public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 
+		switch (getTablePiece(x, y).getIcon()) {
+
+		case PAWN:
+			return pawnSuggestions(x, y);
+
+		case KNIGHT:
+			return knightSuggestions(x, y);
+
+		case KING:
+			return kingSuggestions(x, y);
+			
+		case QUEEN:
+			return queenSuggestions(x,y);
+			
+		case ROOK:
+			return rookSuggestions(x,y);
+		
+		case BISHOP:
+			return bishopSuggestions(x,y);
+			
+		default:
+			return matrix;
+		}
+	}
+
+	public boolean isPiece(int x, int y) {
+		if (this.table[x][y] != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Piece getTablePiece(int x, int y) {
+		return this.table[x][y];
+	}
+
+	public boolean rangeOfTable(int[] pos, int x, int y) {
+		if (x + pos[0] >= 8 || x + pos[0] < 0) {
+			if (y + pos[1] >= 8 || y + pos[1] < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public int determineIndexForRookAndBishop(int i) {
+		if (i >= 0 && i <= 6) {
+			return 7;
+		} else {
+			if (i >= 7 && i <= 13) {
+				return 14;
+			} else {
+				if (i >= 14 && i <= 20) {
+					return 21;
+				} else {
+					if (i >= 21 && i <= 27) {
+						return -1;
+					} else {
+						return -1;
+					}
+				}
+			}
+		}
+	}
+	
+	public int DetermineIndexForQueen(int i) {
+		if (i >= 0 && i <= 6) {
+			return 7;
+		} else {
+			if (i >= 7 && i <= 13) {
+				return 14;
+			} else {
+				if (i >= 14 && i <= 20) {
+					return 21;
+				} else {
+					if (i >= 21 && i <= 27) {
+						return 28;
+					} else {
+						if(i >= 28 && i<= 34) {
+							return 35;
+						}else {
+							if(i >= 35 && i<= 41) {
+								return 42;
+							}else {
+								if(i >= 42 && i <= 48) {
+									return 49;
+								}else {
+									if(i >= 49 && i <= 55) {
+										return -1;
+									}else {
+										return -1;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public ArrayList<ArrayList<Integer>> knightSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (knightMoves(moves[i], x, y)) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+
+	public ArrayList<ArrayList<Integer>> rookSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Rook) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (rookBishopQueenMoves(moves[i], x, y) == 1) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				} else {
+					if (rookBishopQueenMoves(moves[i], x, y) == 2) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+						
+						if (determineIndexForRookAndBishop(i) == -1) {
+							return matrix;
+						} else {
+							i = determineIndexForRookAndBishop(i);
+						}
+					} else {
+						if (rookBishopQueenMoves(moves[i], x, y) == 0) {
+							return matrix;
+						}
+					}
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+	
+	public ArrayList<ArrayList<Integer>> bishopSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Bishop) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (rookBishopQueenMoves(moves[i], x, y) == 1) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				} else {
+					if (rookBishopQueenMoves(moves[i], x, y) == 2) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+						
+						if (determineIndexForRookAndBishop(i) == -1) {
+							return matrix;
+						} else {
+							i = determineIndexForRookAndBishop(i);
+						}
+					} else {
+						if (rookBishopQueenMoves(moves[i], x, y) == 0) {
+							return matrix;
+						}
+					}
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+
+	public ArrayList<ArrayList<Integer>> kingSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((King) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (kingMoves(moves[i], x, y)) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+
+	public ArrayList<ArrayList<Integer>> queenSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Queen) getTablePiece(x, y)).calcMove();
+
+			for (int i = 0; i < moves.length; i++) {
+				if (rookBishopQueenMoves(moves[i], x, y) == 1) {
+					ArrayList<Integer> pos = new ArrayList<Integer>();
+					pos.add(x);
+					pos.add(y);
+					matrix.add(pos);
+				} else {
+					if (rookBishopQueenMoves(moves[i], x, y) == 2) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+						
+						if (DetermineIndexForQueen(i) == -1) {
+							return matrix;
+						} else {
+							i = DetermineIndexForQueen(i);
+						}
+					} else {
+						if (rookBishopQueenMoves(moves[i], x, y) == 0) {
+							return matrix;
+						}
+					}
+				}
+			}
+			return matrix;
+		} else {
+			return matrix;
+		}
+
+	}
+	
+	public ArrayList<ArrayList<Integer>> pawnSuggestions(int x, int y) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		if (isPiece(x, y)) {
+			int[][] moves = ((Pawn) getTablePiece(x, y)).calcMove();
+
+			if (getTablePiece(x, y).getColor() == PieceColor.BLACK) {
+				for (int i = 0; i < moves.length; i++) {
+					if (pawnBlackMoves(moves[i], x, y)) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+					}
+				}
+				return matrix;
+			} else {
+				for (int i = 0; i < moves.length; i++) {
+					if (pawnWhiteMoves(moves[i], x, y)) {
+						ArrayList<Integer> pos = new ArrayList<Integer>();
+						pos.add(x);
+						pos.add(y);
+						matrix.add(pos);
+					}
+				}
+				return matrix;
+			}
+
+		} else {
+			return matrix;
+		}
+	}
+
+	public boolean knightMoves(int[] pos, int x, int y) { // falta capturar.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return false;
+				} else {
+					// capturar;
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public int rookBishopQueenMoves(int[] pos, int x, int y) {
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return 0;
+				} else {
+					// capturar;
+					return 2;
+				}
+			} else {
+				return 1;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public boolean kingMoves(int[] pos, int x, int y) {
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if ((getTablePiece(x, y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor())) {
+					return false;
+				} else {
+					// capturar;
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public boolean pawnBlackMoves(int[] pos, int x, int y) { // falta capturar.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
+					return false;
+				} else {
+					// aqui va capturar;
+					return true;
+				}
+			}
+			if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean pawnWhiteMoves(int[] pos, int x, int y) { // falta capturar.
+		if (rangeOfTable(pos, x, y)) {
+			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
+				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK) {
+					return false;
+				} else {
+					// aqui va capturar;
+				}
+			}
+			if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override

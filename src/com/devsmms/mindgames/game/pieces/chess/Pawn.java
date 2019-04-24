@@ -13,8 +13,8 @@ public class Pawn extends Piece implements MotionPiece {
     }
 	
     @Override
-    public int[][] calcMove (int coordX, int coordY) {
-    	int[][] answer = {{1,0},{2,0},{1,1}, {1,-1}};
+    public int[][] calcMove () {
+    	int[][] answer = {{1,0},{2,0},{1,1}, {1,-1}, {-1,0}, {-2,0}, {-1,-1}, {-1,0}};
         return answer;
     }
 }

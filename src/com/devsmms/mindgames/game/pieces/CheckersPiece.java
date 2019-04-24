@@ -9,7 +9,7 @@ public class CheckersPiece extends Piece implements MotionPiece {
     }
 
 	@Override
-	public int[][] calcMove(int coordX, int coordY) {
+	public int[][] calcMove() {
 		int[][] answer = { { 1, 1 }, { 2, 2 }, { 1, -1 }, { 2, -2 } };
 		return answer;
 	}
