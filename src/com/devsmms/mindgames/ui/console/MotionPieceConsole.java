@@ -41,17 +41,17 @@ public class MotionPieceConsole extends GameConsole {
         do {
             textCoords = Console.leer.readLine();
             validCoords = selectPiece(textCoords);
-        }while(!validCoords);
+        } while (!validCoords);
         printTable(suggestedMoveHandler(textCoords));
     }
 
-    public ArrayList<ArrayList<Integer>> suggestedMoveHandler(String textCoords){
+    public ArrayList<ArrayList<Integer>> suggestedMoveHandler(String textCoords) {
         textCoords = textCoords.toUpperCase();
         char col = textCoords.charAt(0);
-        int row = Integer.parseInt(textCoords.charAt(1)+"");
+        int row = Integer.parseInt(textCoords.charAt(1) + "");
         MotionPieceTable motionPieceTable = (MotionPieceTable) controller.getGameTable();
-        int [] coords = controller.getGameTable().translateCoords(col,row);
-        return motionPieceTable.suggestMove(coords[0],coords[1]);
+        int[] coords = controller.getGameTable().translateCoords(col, row);
+        return motionPieceTable.suggestMove(coords[0], coords[1]);
     }
 
     public boolean selectPiece(String textCoords) {
@@ -73,7 +73,13 @@ public class MotionPieceConsole extends GameConsole {
         TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, null);
     }
 
-    public void printTable(ArrayList<ArrayList<Integer>> suggestions) {
-        TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, suggestions);
+    public boolean printTable(ArrayList<ArrayList<Integer>> suggestions) {
+        if (suggestions.size() > 0) {
+            TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, suggestions);
+            return true;
+        } else {
+            System.out.println("No hay movimientos posibles para esta pieza en esta posicion.");
+            return false;
+        }
     }
 }
