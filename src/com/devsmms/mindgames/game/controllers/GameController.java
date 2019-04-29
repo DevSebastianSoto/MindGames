@@ -35,9 +35,11 @@ public abstract class GameController {
         return p2;
     }
 
-    public GamePlayer getWinner() { return winner; }
+    public GamePlayer getWinner() {
+        return winner;
+    }
 
-    public void setUpPlayers(String p1, String p2){
+    public void setUpPlayers(String p1, String p2) {
         this.p1.setName(p1);
         this.p2.setName(p2);
     }
@@ -45,10 +47,25 @@ public abstract class GameController {
     public boolean coordinatesValidation(String coords) {
         coords = coords.toUpperCase();
         int dim = this.gameTable.getTable().length;
-        char maxWord = (char) (64 + dim);
-        Pattern p = Pattern.compile("^[A-" + maxWord + "][1-" + dim + "]$");
+        char maxLetter = (char) (64 + dim);
+        Pattern p = Pattern.compile(generateRegex(maxLetter, dim));
         Matcher m = p.matcher(coords);
         return m.matches();
     }
 
+    public String generateRegex(char maxLetter, int maxNumber) {
+        String regex = "^[A-" + maxLetter + "]";
+        if (maxNumber < 10) {
+            regex += "[1-" + maxNumber + "]$";
+        } else {
+            regex += "([1-9]|";
+            int i = 10;
+            while (i != maxNumber) {
+                regex += i + "|";
+                i++;
+            }
+            regex += i + ")$";
+        }
+        return regex;
+    }
 }

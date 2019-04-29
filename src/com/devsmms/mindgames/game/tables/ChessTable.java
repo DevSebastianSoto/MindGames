@@ -131,6 +131,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public ArrayList<ArrayList<Integer>> knightSuggestions(int x, int y) {
+//		TODO return optimization
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
 			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
@@ -147,6 +148,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		} else {
 			return matrix;
 		}
+//		Es mejor solo retornar matrix fuera de la condicion, ya que independientemente del resultado se retornara matrix;
 
 	}
 
