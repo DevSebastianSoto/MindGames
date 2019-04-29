@@ -32,16 +32,16 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 
 		case KING:
 			return kingSuggestions(x, y);
-			
+
 		case QUEEN:
-			return queenSuggestions(x,y);
-			
+			return queenSuggestions(x, y);
+
 		case ROOK:
-			return rookSuggestions(x,y);
-		
+			return rookSuggestions(x, y);
+
 		case BISHOP:
-			return bishopSuggestions(x,y);
-			
+			return bishopSuggestions(x, y);
+
 		default:
 			return matrix;
 		}
@@ -90,7 +90,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			}
 		}
 	}
-	
+
 	public int DetermineIndexForQueen(int i) {
 		if (i >= 0 && i <= 6) {
 			return 7;
@@ -104,18 +104,18 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 					if (i >= 21 && i <= 27) {
 						return 28;
 					} else {
-						if(i >= 28 && i<= 34) {
+						if (i >= 28 && i <= 34) {
 							return 35;
-						}else {
-							if(i >= 35 && i<= 41) {
+						} else {
+							if (i >= 35 && i <= 41) {
 								return 42;
-							}else {
-								if(i >= 42 && i <= 48) {
+							} else {
+								if (i >= 42 && i <= 48) {
 									return 49;
-								}else {
-									if(i >= 49 && i <= 55) {
+								} else {
+									if (i >= 49 && i <= 55) {
 										return -1;
-									}else {
+									} else {
 										return -1;
 									}
 								}
@@ -164,7 +164,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 						pos.add(x);
 						pos.add(y);
 						matrix.add(pos);
-						
+
 						if (determineIndexForRookAndBishop(i) == -1) {
 							return matrix;
 						} else {
@@ -183,7 +183,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		}
 
 	}
-	
+
 	public ArrayList<ArrayList<Integer>> bishopSuggestions(int x, int y) {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
@@ -201,7 +201,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 						pos.add(x);
 						pos.add(y);
 						matrix.add(pos);
-						
+
 						if (determineIndexForRookAndBishop(i) == -1) {
 							return matrix;
 						} else {
@@ -258,7 +258,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 						pos.add(x);
 						pos.add(y);
 						matrix.add(pos);
-						
+
 						if (DetermineIndexForQueen(i) == -1) {
 							return matrix;
 						} else {
@@ -277,7 +277,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		}
 
 	}
-	
+
 	public ArrayList<ArrayList<Integer>> pawnSuggestions(int x, int y) {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
@@ -367,35 +367,39 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
 					return false;
 				} else {
-					// aqui va capturar;
-					return true;
+					if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
+						return false;
+					} else {
+						// aqui va capturar;
+						return true;
+					}
 				}
-			}
-			if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
-				return false;
 			} else {
-				return true;
+				return false;
 			}
+
 		} else {
 			return false;
 		}
-
 	}
 
 	public boolean pawnWhiteMoves(int[] pos, int x, int y) { // falta capturar.
 		if (rangeOfTable(pos, x, y)) {
 			if (getTablePiece(x + pos[0], y + pos[1]) != null) {
-				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK) {
+				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
 					return false;
 				} else {
-					// aqui va capturar;
+					if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
+						return false;
+					} else {
+						// aqui va capturar;
+						return true;
+					}
 				}
-			}
-			if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
-				return false;
 			} else {
-				return true;
+				return false;
 			}
+
 		} else {
 			return false;
 		}
