@@ -10,13 +10,12 @@ import com.devsmms.mindgames.ui.enums.Menu;
 import com.devsmms.mindgames.ui.print.ColorPrinter;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class GameConsole {
 
-    protected final int[] rowName;
-    protected final char[] colName;
     protected final String GREETING;
-    protected final Color black, white;
     protected final ColorPrinter textHighlighter;
     protected final ColorPrinter numberHighlighter;
 
@@ -29,31 +28,10 @@ public abstract class GameConsole {
         controller = GameControllerFactory.getGameController(type);
         this.GREETING = greeting;
         this.turnCounter = 0;
-        this.black = Color.BLUE;
-        this.white = Color.RED;
 
 //        Setup ColorPrinters
         this.textHighlighter = (new ColorPrinter.PrinterBuilder()).withBrightness(false).withTextColor(Color.CYAN).build();
         this.numberHighlighter = (new ColorPrinter.PrinterBuilder()).withBrightness(true).withTextColor(Color.MAGENTA).build();
-
-        int dim = controller.getGameTable().getTable().length;
-        rowName = new int[dim];
-        colName = new char[dim];
-        initRowNumbers();
-        initColNames();
-    }
-
-    private void initRowNumbers() {
-        for (int i = rowName.length - 1; i >= 0; i--) {
-            rowName[(i - (rowName.length - 1)) * -1] = i + 1;
-        }
-    }
-
-    private void initColNames() {
-        int unicode = 0x41;
-        for (int i = 0; i < colName.length; i++) {
-            colName[i] = (char) (unicode + i);
-        }
     }
 
     public void selectMainMenuOption() {
@@ -110,7 +88,10 @@ public abstract class GameConsole {
             printTable();
             displayTurnDefaulInformation(player.getName());
             printTurnMenu();
-            selectTurnMenuOption(player);
+            boolean validAction = false;
+            while(!validAction){
+                validAction = selectTurnMenuOption(player);
+            }
             turnCounter++;
         }
         return true;
@@ -119,11 +100,11 @@ public abstract class GameConsole {
     protected void displayTurnDefaulInformation(String playerName) {
         System.out.println("Es el turno de:\t" +
                 textHighlighter.getFormattedString(playerName) +
-                "\tTurno: " + numberHighlighter.getFormattedString(String.valueOf(turnCounter+1)));
+                "\tTurno: " + numberHighlighter.getFormattedString(String.valueOf(turnCounter + 1)));
     }
 
     /*En este momento se lee la opcion seleccionada y el juego actua de forma especifica al juego.*/
-    public abstract void selectTurnMenuOption(GamePlayer player);
+    public abstract boolean selectTurnMenuOption(GamePlayer player);
 
     protected abstract void printTurnMenu();
 

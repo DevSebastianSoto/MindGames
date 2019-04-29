@@ -11,6 +11,9 @@ import com.devsmms.mindgames.ui.print.ColorPrinter;
 
 import java.io.IOException;
 
+import static com.devsmms.mindgames.ui.print.TablePrinter.initColNames;
+import static com.devsmms.mindgames.ui.print.TablePrinter.initRowNumbers;
+
 public class GoConsole extends GameConsole {
 
     private final Color bg;
@@ -21,11 +24,12 @@ public class GoConsole extends GameConsole {
     }
 
     @Override
-    public void selectTurnMenuOption(GamePlayer player) {
+    public boolean selectTurnMenuOption(GamePlayer player) {
         try {
             Console.leer.readLine();
+            return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
     }
 
@@ -36,6 +40,14 @@ public class GoConsole extends GameConsole {
 
     @Override
     public void printTable() {
+        Color black = Color.BLUE;
+        Color white = Color.RED;
+        int dim = controller.getGameTable().getTable().length;
+        int [] rowName = new int[dim];
+        char [] colName = new char[dim];
+
+        initRowNumbers(rowName);
+        initColNames(colName);
         String tableView = "";
         Piece [][] tableMap = controller.getGameTable().getTable();
         ColorPrinter.PrinterBuilder pb = (new ColorPrinter.PrinterBuilder())
@@ -56,7 +68,6 @@ public class GoConsole extends GameConsole {
             tableView += "\n";
         }
         tableView += "\t";
-        String line = "  ";
         for (int i = 0; i < colName.length; i++) {
             tableView += textHighlighter.getFormattedString(colName[i] + "\t");
         }
