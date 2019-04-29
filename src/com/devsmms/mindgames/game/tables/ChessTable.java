@@ -139,8 +139,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			for (int i = 0; i < moves.length; i++) {
 				if (knightMoves(moves[i], x, y)) {
 					ArrayList<Integer> pos = new ArrayList<Integer>();
-					pos.add(x);
 					pos.add(y);
+					pos.add(x);
 					matrix.add(pos);
 				}
 			}
@@ -159,14 +159,14 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			for (int i = 0; i < moves.length; i++) {
 				if (rookBishopQueenMoves(moves[i], x, y) == 1) {
 					ArrayList<Integer> pos = new ArrayList<Integer>();
-					pos.add(x);
 					pos.add(y);
+					pos.add(x);
 					matrix.add(pos);
 				} else {
 					if (rookBishopQueenMoves(moves[i], x, y) == 2) {
 						ArrayList<Integer> pos = new ArrayList<Integer>();
-						pos.add(x);
 						pos.add(y);
+						pos.add(x);
 						matrix.add(pos);
 
 						if (determineIndexForRookAndBishop(i) == -1) {
@@ -196,14 +196,14 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			for (int i = 0; i < moves.length; i++) {
 				if (rookBishopQueenMoves(moves[i], x, y) == 1) {
 					ArrayList<Integer> pos = new ArrayList<Integer>();
-					pos.add(x);
 					pos.add(y);
+					pos.add(x);
 					matrix.add(pos);
 				} else {
 					if (rookBishopQueenMoves(moves[i], x, y) == 2) {
 						ArrayList<Integer> pos = new ArrayList<Integer>();
-						pos.add(x);
 						pos.add(y);
+						pos.add(x);
 						matrix.add(pos);
 
 						if (determineIndexForRookAndBishop(i) == -1) {
@@ -233,8 +233,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			for (int i = 0; i < moves.length; i++) {
 				if (kingMoves(moves[i], x, y)) {
 					ArrayList<Integer> pos = new ArrayList<Integer>();
-					pos.add(x);
 					pos.add(y);
+					pos.add(x);
 					matrix.add(pos);
 				}
 			}
@@ -253,14 +253,14 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			for (int i = 0; i < moves.length; i++) {
 				if (rookBishopQueenMoves(moves[i], x, y) == 1) {
 					ArrayList<Integer> pos = new ArrayList<Integer>();
-					pos.add(x);
 					pos.add(y);
+					pos.add(x);
 					matrix.add(pos);
 				} else {
 					if (rookBishopQueenMoves(moves[i], x, y) == 2) {
 						ArrayList<Integer> pos = new ArrayList<Integer>();
-						pos.add(x);
 						pos.add(y);
+						pos.add(x);
 						matrix.add(pos);
 
 						if (DetermineIndexForQueen(i) == -1) {
@@ -291,8 +291,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				for (int i = 0; i < moves.length; i++) {
 					if (pawnBlackMoves(moves[i], x, y)) {
 						ArrayList<Integer> pos = new ArrayList<Integer>();
-						pos.add(x);
 						pos.add(y);
+						pos.add(x);
 						matrix.add(pos);
 					}
 				}
@@ -301,8 +301,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				for (int i = 0; i < moves.length; i++) {
 					if (pawnWhiteMoves(moves[i], x, y)) {
 						ArrayList<Integer> pos = new ArrayList<Integer>();
-						pos.add(x);
 						pos.add(y);
+						pos.add(x);
 						matrix.add(pos);
 					}
 				}
