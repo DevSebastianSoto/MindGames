@@ -22,12 +22,14 @@ public abstract class GameConsole {
     protected GameController controller;
     private boolean running;
     private int turnCounter;
+    protected GamePlayer currentPlayer;
 
 
     GameConsole(GameTypes type, String greeting) {
         controller = GameControllerFactory.getGameController(type);
         this.GREETING = greeting;
         this.turnCounter = 0;
+        this.currentPlayer = null;
 
 //        Setup ColorPrinters
         this.textHighlighter = (new ColorPrinter.PrinterBuilder()).withBrightness(false).withTextColor(Color.CYAN).build();

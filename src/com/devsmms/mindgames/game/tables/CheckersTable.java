@@ -14,8 +14,7 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
         initTableWithPieces();
     }
 
-    @Override
-    public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
+    public ArrayList<ArrayList<Integer>> suggestAllMoves(int x, int y) {
         if (this.table[y][x] != null) {
             CheckersPiece p = (CheckersPiece) this.table[y][x];
             if (p != null) {
@@ -29,10 +28,7 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
                         CheckersPiece pieceInCoords = (CheckersPiece) this.table[yCoords][xCoords];
                         ArrayList<Integer> pos = new ArrayList<>();
 
-                        if (pieceInCoords != null && pieceInCoords.getColor() != p.getColor()) {
-                            yCoords *= 2;
-                            xCoords *= 2;
-                        } else if (pieceInCoords == null) {
+                        if (pieceInCoords == null || pieceInCoords.getColor() != p.getColor()) {
                             pos.add(xCoords);
                             pos.add(yCoords);
                             matrix.add(pos);
@@ -43,6 +39,29 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
             }
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
+        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x,y);
+        ArrayList<ArrayList<Integer>> fromTopBottom = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> fromBottomTop = new ArrayList<>();
+
+        for(ArrayList<Integer> pos : allMoves){
+            if(pos.get(0) < 0){
+                fromTopBottom.add(pos);
+            }else{
+                fromBottomTop.add(pos);
+            }
+        }
+
+        CheckersPiece p = (CheckersPiece) this.table[y][x];
+
+        if(p.getColor() == PieceColor.WHITE){
+            return fromBottomTop;
+        }else{
+            return fromTopBottom;
+        }
     }
 
     @Override

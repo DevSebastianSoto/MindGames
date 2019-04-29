@@ -22,8 +22,4 @@ public class ChessPlayer extends GamePlayer {
 		this.points = points;
 	}
 	
-	public void movePiece() {
-		
-	}
-	
 }

@@ -7,4 +7,9 @@ public class ChessConsole extends MotionPieceConsole {
     public ChessConsole() {
         super(GameTypes.CHESS, "Preparate para jugar Chess!");
     }
+
+    @Override
+    public void handleMotion(int prevX, int prevY, int postX, int postY) {
+
+    }
 }

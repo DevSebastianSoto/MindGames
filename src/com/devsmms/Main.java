@@ -8,6 +8,6 @@ import com.devsmms.mindgames.ui.print.ColorPrinter;
 public class Main {
 
 	public static void main(String[] args) {
-
+		Console.getInstance().start();
 	}
 }

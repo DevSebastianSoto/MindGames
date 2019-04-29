@@ -14,22 +14,16 @@ import com.devsmms.mindgames.ui.print.TablePrinter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MotionPieceConsole extends GameConsole {
-
-    private final ColorPrinter suggested;
+public abstract class MotionPieceConsole extends GameConsole {
 
     MotionPieceConsole(GameTypes type, String greeting) {
         super(type, greeting);
-        this.suggested = (new ColorPrinter.PrinterBuilder())
-                .withBrightness(true)
-                .withTextColor(Color.RED)
-                .withBackGroundColor(Color.GREEN)
-                .build();
     }
 
     @Override
     public boolean selectTurnMenuOption(GamePlayer player) {
         try {
+            this.currentPlayer = player;
             playTurn();
             return true;
         } catch (IOException e) {
@@ -39,7 +33,7 @@ public class MotionPieceConsole extends GameConsole {
 
     private boolean playTurn() throws IOException {
         boolean finished = false;
-        while(!finished){
+        while (!finished) {
             String pieceCoordinates = validCoordinateHelper();
             ArrayList<ArrayList<Integer>> suggestions = suggestedMoveHandler(pieceCoordinates);
             if (suggestions != null) {
@@ -47,12 +41,14 @@ public class MotionPieceConsole extends GameConsole {
                     printTable(suggestions);
                     printSuggestionSelectionInstructions();
                     boolean validSelection;
+                    int[] coords;
                     do {
                         String selectedSuggestionCoordinates = validCoordinateHelper();
-                        int[] coords = textCoordinateParser(selectedSuggestionCoordinates);
+                        coords = textCoordinateParser(selectedSuggestionCoordinates);
                         validSelection = selectSuggestion(coords, suggestions);
                     } while (!validSelection);
-                    System.out.println("Se cambia la pieza de lugar y se maneja el turno extra");
+                    int[] prevCoords = textCoordinateParser(pieceCoordinates);
+                    handleMotion(prevCoords[0], prevCoords[1], coords[0], coords[1]);
                     finished = true;
                 } else if (suggestions.size() == 0) {
                     System.out.println("No hay movimientos posibles para esta pieza en esta posicion.");
@@ -78,7 +74,7 @@ public class MotionPieceConsole extends GameConsole {
 
     }
 
-    private ArrayList<ArrayList<Integer>> suggestedMoveHandler(String textCoordinates) {
+    protected ArrayList<ArrayList<Integer>> suggestedMoveHandler(String textCoordinates) {
         int[] coords = textCoordinateParser(textCoordinates);
         int x = coords[0];
         int y = coords[1];
@@ -86,7 +82,7 @@ public class MotionPieceConsole extends GameConsole {
         return motionPieceTable.suggestMove(x, y);
     }
 
-    private int[] textCoordinateParser(String textCoordinates) {
+    protected int[] textCoordinateParser(String textCoordinates) {
         textCoordinates = textCoordinates.toUpperCase();
         char col = textCoordinates.charAt(0);
         int row = Integer.parseInt(textCoordinates.charAt(1) + "");
@@ -129,4 +125,6 @@ public class MotionPieceConsole extends GameConsole {
     public void printTable(ArrayList<ArrayList<Integer>> suggestions) {
         TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, suggestions);
     }
+
+    public abstract void handleMotion(int prevX, int prevY, int postX, int postY);
 }
