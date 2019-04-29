@@ -3,6 +3,7 @@ package com.devsmms.mindgames.ui.console;
 import com.devsmms.mindgames.game.enums.GameTypes;
 import com.devsmms.mindgames.game.pieces.Piece;
 import com.devsmms.mindgames.game.players.GamePlayer;
+import com.devsmms.mindgames.game.players.MotionPiecePlayer;
 import com.devsmms.mindgames.game.tables.ChessTable;
 import com.devsmms.mindgames.game.tables.GameTable;
 import com.devsmms.mindgames.game.tables.MotionPieceTable;
@@ -48,7 +49,11 @@ public abstract class MotionPieceConsole extends GameConsole {
                         validSelection = selectSuggestion(coords, suggestions);
                     } while (!validSelection);
                     int[] prevCoords = textCoordinateParser(pieceCoordinates);
-                    handleMotion(prevCoords[0], prevCoords[1], coords[0], coords[1]);
+
+                    boolean pieceActionFinished;
+                    do {
+                        pieceActionFinished = ((MotionPiecePlayer) currentPlayer).handleMotion(prevCoords[0], prevCoords[1], coords[0], coords[1]);
+                    } while (!pieceActionFinished);
                     finished = true;
                 } else if (suggestions.size() == 0) {
                     System.out.println("No hay movimientos posibles para esta pieza en esta posicion.");
@@ -126,5 +131,4 @@ public abstract class MotionPieceConsole extends GameConsole {
         TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, suggestions);
     }
 
-    public abstract void handleMotion(int prevX, int prevY, int postX, int postY);
 }

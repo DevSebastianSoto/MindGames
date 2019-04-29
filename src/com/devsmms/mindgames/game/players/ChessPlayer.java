@@ -2,7 +2,7 @@ package com.devsmms.mindgames.game.players;
 
 import com.devsmms.mindgames.game.pieces.Piece;
 
-public class ChessPlayer extends GamePlayer {
+public class ChessPlayer extends GamePlayer implements MotionPiecePlayer{
 	private Piece capturadas [];
 	private int points;
 	
@@ -21,5 +21,9 @@ public class ChessPlayer extends GamePlayer {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	
+
+	@Override
+	public boolean handleMotion(int prevX, int prevY, int postX, int postY) {
+		return false;
+	}
 }

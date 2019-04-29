@@ -12,19 +12,4 @@ public class CheckersConsole extends MotionPieceConsole {
         super(GameTypes.CHECKERS, "Bienvenido a Checkers");
     }
 
-
-    @Override
-    public void handleMotion(int prevX, int prevY, int postX, int postY) {
-        Piece[][] table = controller.getGameTable().getTable();
-
-        Piece p = table[prevY][prevX];
-        table[postY][postX] = p;
-        table[prevY][prevX] = null;
-
-    }
-
-
-    public void movePiece(){
-
-    }
 }
