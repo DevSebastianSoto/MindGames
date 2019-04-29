@@ -42,12 +42,14 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		case BISHOP:
 			return bishopSuggestions(x, y);
 
+
 		default:
 			return matrix;
 		}
 	}
 
 	public boolean isPiece(int x, int y) {
+//	    TODO cambiar la forma en la que se manejan filas y columnas
 		if (this.table[x][y] != null) {
 			return true;
 		} else {
@@ -56,10 +58,12 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public Piece getTablePiece(int x, int y) {
+        //	    TODO cambiar la forma en la que se manejan filas y columnas
 		return this.table[x][y];
 	}
 
 	public boolean rangeOfTable(int[] pos, int x, int y) {
+//	    TODO cambiar la forma en la que se evaluan los limites
 		if (x + pos[0] >= 8 || x + pos[0] < 0) {
 			if (y + pos[1] >= 8 || y + pos[1] < 0) {
 				return true;
@@ -367,7 +371,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
 					return false;
 				} else {
-					if (x + pos[0] < x) {// Comprobación de que no vaya hacia atras.
+					if (x + pos[0] < x) {// Comprobaciï¿½n de que no vaya hacia atras.
 						return false;
 					} else {
 						// aqui va capturar;
@@ -389,7 +393,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				if (getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE) {
 					return false;
 				} else {
-					if (x + pos[0] > x) {// Comprobación de que no vaya hacia atras.
+					if (x + pos[0] > x) {// Comprobaciï¿½n de que no vaya hacia atras.
 						return false;
 					} else {
 						// aqui va capturar;

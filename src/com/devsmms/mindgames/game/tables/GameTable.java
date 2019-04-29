@@ -15,9 +15,9 @@ public abstract class GameTable {
 
     public int[] translateCoords(char col, int row) {
         row = this.table.length - row;
-        col = (char) (65 - (int) col);
-        if (col > -1 && row > -1)
-            return new int[]{col, row};
+        int column = ((int) col - 65);
+        if (column > -1 && row > -1)
+            return new int[]{column, row};
         else
             return null;
     }
