@@ -48,7 +48,6 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public boolean isPiece(int x, int y) {
-//	    TODO cambiar la forma en la que se manejan filas y columnas
 		if (this.table[x][y] != null) {
 			return true;
 		} else {
@@ -57,12 +56,10 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public Piece getTablePiece(int x, int y) {
-        //	    TODO cambiar la forma en la que se manejan filas y columnas
 		return this.table[x][y];
 	}
 
 	public boolean rangeOfTable(int[] pos, int x, int y) {
-//	    TODO cambiar la forma en la que se evaluan los limites
 		if (x + pos[0] >= 8 || x + pos[0] < 0) {
 			if (y + pos[1] >= 8 || y + pos[1] < 0) {
 				return true;
@@ -131,7 +128,6 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public ArrayList<ArrayList<Integer>> knightSuggestions(int x, int y) {
-//		TODO return optimization
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		if (isPiece(x, y)) {
 			int[][] moves = ((Knight) getTablePiece(x, y)).calcMove();
@@ -148,8 +144,6 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		} else {
 			return matrix;
 		}
-//		Es mejor solo retornar matrix fuera de la condicion, ya que independientemente del resultado se retornara matrix;
-
 	}
 
 	public ArrayList<ArrayList<Integer>> rookSuggestions(int x, int y) {

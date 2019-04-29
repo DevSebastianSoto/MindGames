@@ -52,7 +52,6 @@ public class MotionPieceConsole extends GameConsole {
                         int[] coords = textCoordinateParser(selectedSuggestionCoordinates);
                         validSelection = selectSuggestion(coords, suggestions);
                     } while (!validSelection);
-//            TODO hacer metodo que reciba "pieceCoordinates" y "selectedSuggestionCoordinates" para que el Player mueva la pieza
                     System.out.println("Se cambia la pieza de lugar y se maneja el turno extra");
                     finished = true;
                 } else if (suggestions.size() == 0) {

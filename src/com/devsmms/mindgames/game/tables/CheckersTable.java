@@ -23,7 +23,6 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
                 ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
                 for (int i = 0; i < moves.length; i++) {
                     int[] coords = moves[i];
-//				TODO verificar que las coordenadas de calcMove esten bien, en caso de error
                     int yCoords = y + coords[0];
                     int xCoords = x + coords[1];
                     if ((yCoords >= 0 && yCoords < this.table.length) && (xCoords >= 0 && xCoords < this.table.length)) {
@@ -31,7 +30,6 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
                         ArrayList<Integer> pos = new ArrayList<>();
 
                         if (pieceInCoords != null && pieceInCoords.getColor() != p.getColor()) {
-//						TODO change pieceInCoords state to dead/taken
                             yCoords *= 2;
                             xCoords *= 2;
                         } else if (pieceInCoords == null) {
