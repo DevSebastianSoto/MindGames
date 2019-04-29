@@ -20,7 +20,8 @@ public enum Menu {
     SET_PLAYER_NAME(
             "Por favor digite su nombre."
     ),
-    SELECT_PIECE("Por favor, digite las cordenadas de la pieza que desea usar ejemplo \"a8\"");
+    SELECT_PIECE("Por favor, digite las cordenadas de la pieza que desea usar ejemplo \"a8\"."),
+    SELECT_SUGGESTION("Por favor, digite las cordenadas de la sugerencia que desea jugar.");
 
     private String text;
 
