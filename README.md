@@ -5,3 +5,6 @@ Pattern Programming course final project, implementing patterns to create a Ches
 - Simple Factory
 - Strategy
 - Template
+- Abstract Factory
+- Builder
+- Singleton
