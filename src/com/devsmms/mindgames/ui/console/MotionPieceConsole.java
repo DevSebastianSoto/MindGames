@@ -14,6 +14,7 @@ import com.devsmms.mindgames.ui.print.TablePrinter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class MotionPieceConsole extends GameConsole {
 
@@ -32,40 +33,43 @@ public abstract class MotionPieceConsole extends GameConsole {
         }
     }
 
-    private boolean playTurn() throws IOException {
+    protected void playTurn() throws IOException {
         boolean finished = false;
         while (!finished) {
-            String pieceCoordinates = validCoordinateHelper();
-            ArrayList<ArrayList<Integer>> suggestions = suggestedMoveHandler(pieceCoordinates);
+            String selectedPieceCoordinates = validCoordinateHelper();
+            ArrayList<ArrayList<Integer>> suggestions = suggestedMoveHandler(selectedPieceCoordinates);
             if (suggestions != null) {
                 if (suggestions.size() > 0) {
-                    printTable(suggestions);
-                    printSuggestionSelectionInstructions();
-                    boolean validSelection;
-                    int[] coords;
-                    do {
-                        String selectedSuggestionCoordinates = validCoordinateHelper();
-                        coords = textCoordinateParser(selectedSuggestionCoordinates);
-                        validSelection = selectSuggestion(coords, suggestions);
-                    } while (!validSelection);
-                    int[] prevCoords = textCoordinateParser(pieceCoordinates);
-
-                    boolean pieceActionFinished;
-                    do {
-                        pieceActionFinished = ((MotionPiecePlayer) currentPlayer).handleMotion(prevCoords[0], prevCoords[1], coords[0], coords[1]);
-                    } while (!pieceActionFinished);
+                    printSuggestionsTable(suggestions);
+                    int[] prevCoords = textCoordinateParser(selectedPieceCoordinates);
+                    int[] postCoords = selectSuggestion(suggestions);
+                    movePieceByCurrentPlayer(prevCoords,postCoords);
                     finished = true;
-                } else if (suggestions.size() == 0) {
-                    System.out.println("No hay movimientos posibles para esta pieza en esta posicion.");
+                }else{
+                    System.out.println(Menu.NO_SUGGESTIONS.getText());
                 }
-            } else {
-                System.out.println("Ese espacio no tiene ninguna pieza.");
+            }else{
+                System.out.println(Menu.NO_PIECE_IN_CELL.getText());
             }
         }
-        return true;
     }
 
-    private boolean selectSuggestion(int[] coords, ArrayList<ArrayList<Integer>> suggestions) {
+    private void movePieceByCurrentPlayer(int[] prevCoords, int[] postCoords){
+        ((MotionPiecePlayer)this.currentPlayer).handleMotion(this.controller.getGameTable().getTable(),prevCoords[0],prevCoords[1],postCoords[0],postCoords[1]);
+    }
+
+    protected int [] selectSuggestion(ArrayList<ArrayList<Integer>> suggestions) throws IOException {
+        boolean validSelection;
+        int[] coords;
+        do {
+            String selectedSuggestionCoordinates = validCoordinateHelper();
+            coords = textCoordinateParser(selectedSuggestionCoordinates);
+            validSelection = selectSuggestionValidator(coords, suggestions);
+        } while (!validSelection);
+        return coords;
+    }
+
+    protected boolean selectSuggestionValidator(int[] coords, ArrayList<ArrayList<Integer>> suggestions) {
         boolean valid = false;
         for (ArrayList<Integer> pos : suggestions) {
             if (pos.get(0) == coords[0] && pos.get(1) == coords[1]) {
@@ -94,7 +98,7 @@ public abstract class MotionPieceConsole extends GameConsole {
         return controller.getGameTable().translateCoords(col, row);
     }
 
-    private String validCoordinateHelper() throws IOException {
+    protected String validCoordinateHelper() throws IOException {
         boolean validCoords;
         String textCoords;
         do {
@@ -104,7 +108,7 @@ public abstract class MotionPieceConsole extends GameConsole {
         return textCoords;
     }
 
-    private boolean selectCoords(String textCoords) {
+    protected boolean selectCoords(String textCoords) {
         if (controller.coordinatesValidation(textCoords)) {
             return true;
         } else {
@@ -118,7 +122,7 @@ public abstract class MotionPieceConsole extends GameConsole {
         System.out.println(Menu.SELECT_PIECE.getText());
     }
 
-    private void printSuggestionSelectionInstructions() {
+    protected void printSuggestionSelectionInstructions() {
         System.out.println(Menu.SELECT_SUGGESTION.getText());
     }
 
@@ -127,8 +131,9 @@ public abstract class MotionPieceConsole extends GameConsole {
         TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, null);
     }
 
-    public void printTable(ArrayList<ArrayList<Integer>> suggestions) {
+    public void printSuggestionsTable(ArrayList<ArrayList<Integer>> suggestions) {
         TablePrinter.printTable(controller.getGameTable().getTable(), numberHighlighter, suggestions);
+        printSuggestionSelectionInstructions();
     }
 
 }
