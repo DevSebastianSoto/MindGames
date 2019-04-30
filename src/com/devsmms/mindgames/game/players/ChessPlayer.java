@@ -25,5 +25,4 @@ public class ChessPlayer extends GamePlayer {
 	public void movePiece() {
 		
 	}
-	
 }
