@@ -19,7 +19,7 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
         ArrayList<ArrayList<Integer>> moveList = new ArrayList<>();
         switch (dir) {
             case ALL:
-                for(int i =0;i<moves.length;i++){
+                for (int i = 0; i < moves.length; i++) {
                     ArrayList<Integer> coordinates = new ArrayList<>();
                     coordinates.add(moves[i][0]);
                     coordinates.add(moves[i][1]);
@@ -27,9 +27,9 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
                 }
                 break;
             case BOTTOMTOP:
-                for(int i =0;i<moves.length;i++){
+                for (int i = 0; i < moves.length; i++) {
                     ArrayList<Integer> coordinates = new ArrayList<>();
-                    if(moves[i][0] > 0){
+                    if (moves[i][0] > 0) {
                         coordinates.add(moves[i][0]);
                         coordinates.add(moves[i][1]);
                         moveList.add(coordinates);
@@ -37,9 +37,9 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
                 }
                 break;
             case TOPBOTTOM:
-                for(int i =0;i<moves.length;i++){
+                for (int i = 0; i < moves.length; i++) {
                     ArrayList<Integer> coordinates = new ArrayList<>();
-                    if(moves[i][0] < 0){
+                    if (moves[i][0] < 0) {
                         coordinates.add(moves[i][0]);
                         coordinates.add(moves[i][1]);
                         moveList.add(coordinates);
@@ -50,54 +50,122 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
         return moveList;
     }
 
-    public ArrayList<ArrayList<Integer>> suggestAllMoves(int x, int y, MoveDirection dir) {
+    public ArrayList<ArrayList<Integer>> suggestAllMoves(int x, int y, MoveDirection dir, PieceColor pc) {
+        CheckersPiece p;
         if (this.table[y][x] != null) {
-            CheckersPiece p = (CheckersPiece) this.table[y][x];
-            if (p != null) {
-                ArrayList<ArrayList<Integer>> moves = filterMoves(p, dir);
-                ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
+            p = (CheckersPiece) this.table[y][x];
+        } else {
+            p = new CheckersPiece();
+            p.setColor(pc);
+        }
+        ArrayList<ArrayList<Integer>> moves = filterMoves(p, dir);
+        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
 
-                for (int i = 0; i < moves.size(); i++) {
-                    ArrayList<Integer> coords = moves.get(i);
-                    int yCoords = y + coords.get(0);
-                    int xCoords = x + coords.get(1);
-                    if ((yCoords >= 0 && yCoords < this.table.length) && (xCoords >= 0 && xCoords < this.table.length)) {
-                        CheckersPiece pieceInCoords = (CheckersPiece) this.table[yCoords][xCoords];
-                        ArrayList<Integer> pos = new ArrayList<>();
+        for (int i = 0; i < moves.size(); i++) {
+            ArrayList<Integer> coords = moves.get(i);
+            int yCoords = y + coords.get(0);
+            int xCoords = x + coords.get(1);
+            if ((yCoords >= 0 && yCoords < this.table.length) && (xCoords >= 0 && xCoords < this.table.length)) {
+                CheckersPiece pieceInCoords = (CheckersPiece) this.table[yCoords][xCoords];
+                ArrayList<Integer> pos = new ArrayList<>();
 
-                        if (pieceInCoords == null || pieceInCoords.getColor() != p.getColor()) {
-                            pos.add(xCoords);
-                            pos.add(yCoords);
-                            matrix.add(pos);
-                        }
-                    }
+                if (pieceInCoords == null || pieceInCoords.getColor() != p.getColor()) {
+                    pos.add(xCoords);
+                    pos.add(yCoords);
+                    matrix.add(pos);
                 }
-                return matrix;
             }
         }
-        return null;
+        return matrix;
+
     }
 
-    @Override
-    public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
-        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x, y, MoveDirection.ALL);
+    public ArrayList<ArrayList<Integer>> findPath(int x, int y, int prevEnemyX, int prevEnemyY, int counter, ArrayList<ArrayList<Integer>> path, PieceColor pc) {
+
+        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x, y, MoveDirection.ALL, pc);
         for (ArrayList<Integer> pos : allMoves) {
             int xPos = pos.get(0);
             int yPos = pos.get(1);
 
-            if ((this.table[yPos][xPos]) != null && (this.table[yPos][xPos]).getColor() != (this.table[y][x]).getColor()) {
+            if ((prevEnemyX != xPos && prevEnemyY != yPos) && ((this.table[yPos][xPos]) != null && (this.table[yPos][xPos]).getColor() != pc)) {
                 System.out.println("Hola buenas! soy enemigo");
+
+                int[] nextPosArr = calcNextPosition(x, xPos, yPos, pc);
+                int x3 = nextPosArr[0];
+                int y3 = nextPosArr[1];
+                this.table[yPos][xPos] = null;
+                if (x3 >= 0 && y3 >= 0) {
+                    if (this.table[y3][x3] == null) {
+                        ArrayList<Integer> futurePos = new ArrayList<>();
+                        futurePos.add(x3);
+                        futurePos.add(y3);
+                        if (path.size() > 0) {
+                            path.set(0, futurePos);
+                        } else {
+                            path.add(futurePos);
+                        }
+                        findPath(x3, y3, xPos, yPos, counter, path, pc);
+
+                    }
+                }
             }
         }
+        return path;
+    }
 
-        CheckersPiece p = (CheckersPiece) this.table[y][x];
+    private int[] calcNextPosition(int x1, int x2, int y2, PieceColor pc) {
+        MoveDirection dirY = (pc == PieceColor.BLACK) ? MoveDirection.TOPBOTTOM : MoveDirection.BOTTOMTOP;
+        MoveDirection dirX = (x1 > x2) ? MoveDirection.LEFT : MoveDirection.RIGHT;
 
-        if (p.getColor() == PieceColor.WHITE) {
-            return suggestAllMoves(x,y,MoveDirection.BOTTOMTOP);
-        } else {
-            return suggestAllMoves(x,y,MoveDirection.TOPBOTTOM);
+        int x3 = calcHorizontalPosition(x2, dirX);
+        int y3 = calcVerticalPosition(y2, dirY);
+        return new int[]{x3, y3};
+    }
+
+    private int calcHorizontalPosition(int x2, MoveDirection dir) {
+        int x3 = -1;
+        switch (dir) {
+            case LEFT:
+                x3 = x2 - 2;
+                break;
+            case RIGHT:
+                x3 = x2 + 2;
+                break;
         }
+        return x3;
+        /*int x3 = x2 - x1;
+        return (x2 < x1) ? x2 + x3 : x2 - x3;*/
+    }
 
+    private int calcVerticalPosition(int y2, MoveDirection dir) {
+        int y3 = -1;
+        switch (dir) {
+            case BOTTOMTOP:
+                y3 = y2 - 2;
+                break;
+            case TOPBOTTOM:
+                y3 = y2 + 2;
+                break;
+        }
+        return y3;
+    }
+
+    @Override
+    public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
+        ArrayList<ArrayList<Integer>> attackPath = new ArrayList<>();
+        findPath(x, y, -1, -1, 0, attackPath, this.table[y][x].getColor());
+
+        if (attackPath.size() > 0) {
+            return attackPath;
+        } else {
+            CheckersPiece p = (CheckersPiece) this.table[y][x];
+
+            if (p.getColor() == PieceColor.WHITE) {
+                return suggestAllMoves(x, y, MoveDirection.BOTTOMTOP, this.table[y][x].getColor());
+            } else {
+                return suggestAllMoves(x, y, MoveDirection.TOPBOTTOM, this.table[y][x].getColor());
+            }
+        }
     }
 
     @Override
@@ -143,6 +211,6 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
     }
 
     private enum MoveDirection {
-        ALL, BOTTOMTOP, TOPBOTTOM;
+        ALL, BOTTOMTOP, TOPBOTTOM, LEFT, RIGHT;
     }
 }
