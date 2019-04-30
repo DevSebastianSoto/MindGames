@@ -29,6 +29,7 @@ public class ChessPlayer extends GamePlayer implements MotionPiecePlayer {
     public void handleMotion(GameTable gTable, int prevX, int prevY, int postX, int postY) {
         ChessTable currentTable = (ChessTable) gTable;
         currentTable.movePiece(prevX, prevY, postX, postY);
+
     }
 
 }
