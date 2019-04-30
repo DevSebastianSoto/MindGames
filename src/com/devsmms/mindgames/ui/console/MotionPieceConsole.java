@@ -27,6 +27,14 @@ public abstract class MotionPieceConsole extends GameConsole {
         try {
             this.currentPlayer = player;
             playTurn();
+
+            if(ChessTable.class.getName() == controller.getGameTable().getClass().getName()){
+                if( ((ChessTable)controller.getGameTable()).getBlackKing().isAlive() == false || ((ChessTable)controller.getGameTable()).getWhiteKing().isAlive() == false ){
+                    System.out.println("El rey ha muerto! El juego ha acabado! El ganador es: " + this.currentPlayer.getName());
+                    controller.setWinner(this.currentPlayer);
+                }
+            }
+
             return true;
         } catch (IOException e) {
             return false;

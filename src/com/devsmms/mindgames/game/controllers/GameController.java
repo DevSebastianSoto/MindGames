@@ -23,6 +23,10 @@ public abstract class GameController {
         winner = null;
     }
 
+    public void setWinner(GamePlayer winner) {
+        this.winner = winner;
+    }
+
     public GameTable getGameTable() {
         return gameTable;
     }

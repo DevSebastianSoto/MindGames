@@ -13,6 +13,9 @@ import com.devsmms.mindgames.game.pieces.chess.Rook;
 
 public class ChessTable extends GameTable implements MotionPieceTable {
 	ArrayList<ArrayList<Integer>> suggestions;
+	King WhiteKing;
+	King BlackKing;
+
 
 	public ChessTable() {
 		this.table = new Piece[8][8];
@@ -60,8 +63,19 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public void movePiece(int prex, int prey, int postx, int posty){
+		if(this.table[posty][postx] == null){
 			this.table[posty][postx] = this.table[prey][prex];
 			this.table[prey][prex] = null;
+		}else{
+			if( this.table[posty][postx].getClass().getName() == King.class.getName()){
+				((King)(this.table[posty][postx])).setAlive(false);
+				this.table[posty][postx] = this.table[prey][prex];
+				this.table[prey][prex] = null;
+			}
+		}
+
+
+
 	}
 
 	public boolean isPiece(int x, int y) {
@@ -449,6 +463,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		Piece BlackKing = new King(PieceColor.BLACK);
 		Piece BlackQueen = new Queen(PieceColor.BLACK);
 
+		this.BlackKing = (King)BlackKing;
+
 		Piece BlackKnight1 = new Knight(PieceColor.BLACK);
 		Piece BlackKnight2 = new Knight(PieceColor.BLACK);
 
@@ -498,6 +514,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		Piece WhiteKing = new King(PieceColor.WHITE);
 		Piece WhiteQueen = new Queen(PieceColor.WHITE);
 
+		this.WhiteKing = (King) WhiteKing;
+
 		Piece WhiteKnight1 = new Knight(PieceColor.WHITE);
 		Piece WhiteKnight2 = new Knight(PieceColor.WHITE);
 
@@ -544,4 +562,13 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		this.table[6][6] = WhitePawn7;
 		this.table[6][7] = WhitePawn8;
 	}
+
+	public King getWhiteKing() {
+		return WhiteKing;
+	}
+
+	public King getBlackKing() {
+		return BlackKing;
+	}
 }
+
