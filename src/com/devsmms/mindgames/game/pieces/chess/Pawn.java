@@ -18,6 +18,11 @@ public class Pawn extends Piece implements MotionPiece {
         return firstTurn;
     }
 
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
+
+
     @Override
     public int[][] calcMove () {
         int[][] answer = {{0,1},{0,2},{0,-1},{0,-2},{1,-1},{1,1},{-1,-1},{-1,1}};

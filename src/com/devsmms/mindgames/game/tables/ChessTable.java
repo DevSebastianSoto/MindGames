@@ -88,20 +88,20 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		}
 	}
 
-	public int determineIndexForRookAndBishop(int i) {
+	public int determineIndexForRookAndBishop(int i) { // sumar 1 a todos los return menos el -1
 		if (i >= 0 && i <= 6) {
-			return 7;
+			return 6;
 		} else {
 			if (i >= 7 && i <= 13) {
-				return 14;
+				return 13;
 			} else {
 				if (i >= 14 && i <= 20) {
-					return 21;
+					return 20;
 				} else {
 					if (i >= 21 && i <= 27) {
-						return -1;
+						return -2;
 					} else {
-						return -1;
+						return -2;
 					}
 				}
 			}
@@ -131,9 +131,9 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 									return 49;
 								} else {
 									if (i >= 49 && i <= 55) {
-										return -1;
+										return -2;
 									} else {
-										return -1;
+										return -2;
 									}
 								}
 							}
@@ -181,6 +181,9 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		int[][] moves = ((Bishop)getTablePiece(x,y)).calcMove();
 		for(int i = 0; i < moves.length; i++){
+			if(i == -1){
+				return matrix;
+			}
 			if(rookBishopQueenMoves(moves[i],x,y) == 1){
 				ArrayList<Integer> pos = new ArrayList<Integer>();
 				pos.add(x + moves[i][0]);
@@ -188,7 +191,7 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 				matrix.add(pos);
 			}else{
 				if(rookBishopQueenMoves(moves[i],x,y) == -1){
-					i = determineIndexForRookAndBishop(i);
+						i = determineIndexForRookAndBishop(i);
 				}
 
 			}
@@ -214,6 +217,9 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		int[][] moves = ((Queen)getTablePiece(x,y)).calcMove();
 		for(int i = 0; i < moves.length; i++){
+			if(i == -1){
+				return matrix;
+			}
 			if(rookBishopQueenMoves(moves[i],x,y) == 1){
 				ArrayList<Integer> pos = new ArrayList<Integer>();
 				pos.add(x + moves[i][0]);
@@ -273,7 +279,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 		}
 	}
 
-	public int rookBishopQueenMoves(int[] pos, int x, int y) {
+	public int rookBishopQueenMoves(int[] pos, int x, int y)
+	{
 		if(rangeOfTable(pos,x,y)){
 			if(getTablePiece(x + pos[0], y + pos[1]) != null){
 				if(getTablePiece(x,y).getColor() == getTablePiece(x + pos[0], y + pos[1]).getColor()){
@@ -311,7 +318,17 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			if( y < y + pos[1] ){
 				if(getTablePiece(x + pos[0], y + pos[1]) != null){
 					if(getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.WHITE){
-						return true;
+
+						if(isDiagonal(x, y, x+pos[0], y+pos[1])){
+							return true;
+						}
+
+						if(isDoubleForward(y, y+pos[1]) || isStepForward(y, y+pos[1]) ||
+								( isDoubleForward(y, y+pos[1]) && !firstTurn(x, y) ) ){
+							return false;
+						}else{
+							return true;
+						}
 					}else{
 						//aqui se captura;
 						return false;
@@ -321,7 +338,12 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 						return false;
 					}else{
 						if(isDoubleForward(y, y+pos[1]) && firstTurn(x,y)){
-							return true;
+							if(getTablePiece(x, y+pos[1] -1 ) != null){
+								return false;
+							}else{
+								((Pawn)getTablePiece(x,y)).setFirstTurn(false);
+								return true;
+							}
 						}else{
 							if(isStepForward(y, y+pos[1])){
 								return true;
@@ -344,7 +366,16 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 			if( y > y + pos[1] ){
 				if(getTablePiece(x + pos[0], y + pos[1]) != null){
 					if(getTablePiece(x + pos[0], y + pos[1]).getColor() == PieceColor.BLACK){
-						return true;
+						if(isDiagonal(x, y, x+pos[0], y+pos[1])){
+							return true;
+						}
+
+						if(isDoubleForward(y, y+pos[1]) || isStepForward(y, y+pos[1]) ||
+								( isDoubleForward(y, y+pos[1]) && !firstTurn(x, y) ) ){
+							return false;
+						}else{
+							return true;
+						}
 					}else{
 						return false;
 					}
@@ -353,7 +384,12 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 						return false;
 					}else{
 						if(isDoubleForward(y, y+pos[1]) && firstTurn(x,y)){
-							return true;
+							if(getTablePiece(x, y+pos[1] -1 ) != null){
+								return false;
+							}else{
+								((Pawn)getTablePiece(x,y)).setFirstTurn(false);
+								return true;
+							}
 						}else{
 							if(isStepForward(y, y+pos[1])){
 								return true;
