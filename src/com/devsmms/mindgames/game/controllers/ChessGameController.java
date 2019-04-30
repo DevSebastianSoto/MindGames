@@ -6,4 +6,5 @@ public final class ChessGameController extends GameController {
     public ChessGameController() {
         super(GameTypes.CHESS);
     }
+
 }

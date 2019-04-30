@@ -1,6 +1,7 @@
 package com.devsmms.mindgames.game.players;
 
 import com.devsmms.mindgames.game.pieces.Piece;
+import com.devsmms.mindgames.game.tables.ChessTable;
 import com.devsmms.mindgames.game.tables.GameTable;
 
 public class ChessPlayer extends GamePlayer implements MotionPiecePlayer {
@@ -26,6 +27,9 @@ public class ChessPlayer extends GamePlayer implements MotionPiecePlayer {
 
     @Override
     public void handleMotion(GameTable gTable, int prevX, int prevY, int postX, int postY) {
-
+        ChessTable currentTable = (ChessTable) gTable;
+        currentTable.movePiece(prevX, prevY, postX, postY);
     }
+
 }
+
