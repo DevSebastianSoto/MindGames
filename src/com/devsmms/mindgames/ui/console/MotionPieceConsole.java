@@ -43,22 +43,22 @@ public abstract class MotionPieceConsole extends GameConsole {
                     printSuggestionsTable(suggestions);
                     int[] prevCoords = textCoordinateParser(selectedPieceCoordinates);
                     int[] postCoords = selectSuggestion(suggestions);
-                    movePieceByCurrentPlayer(prevCoords,postCoords);
+                    movePieceByCurrentPlayer(prevCoords, postCoords);
                     finished = true;
-                }else{
+                } else {
                     System.out.println(Menu.NO_SUGGESTIONS.getText());
                 }
-            }else{
+            } else {
                 System.out.println(Menu.NO_PIECE_IN_CELL.getText());
             }
         }
     }
 
-    private void movePieceByCurrentPlayer(int[] prevCoords, int[] postCoords){
-        ((MotionPiecePlayer)this.currentPlayer).handleMotion(this.controller.getGameTable(),prevCoords[0],prevCoords[1],postCoords[0],postCoords[1]);
+    private void movePieceByCurrentPlayer(int[] prevCoords, int[] postCoords) {
+        ((MotionPiecePlayer) this.currentPlayer).handleMotion(this.controller.getGameTable(), prevCoords[0], prevCoords[1], postCoords[0], postCoords[1]);
     }
 
-    protected int [] selectSuggestion(ArrayList<ArrayList<Integer>> suggestions) throws IOException {
+    protected int[] selectSuggestion(ArrayList<ArrayList<Integer>> suggestions) throws IOException {
         boolean validSelection;
         int[] coords;
         do {
@@ -88,7 +88,9 @@ public abstract class MotionPieceConsole extends GameConsole {
         int x = coords[0];
         int y = coords[1];
         MotionPieceTable motionPieceTable = (MotionPieceTable) controller.getGameTable();
-        return motionPieceTable.suggestMove(x, y);
+        if (controller.getGameTable().getTable()[y][x] != null)
+            return motionPieceTable.suggestMove(x, y);
+        return null;
     }
 
     protected int[] textCoordinateParser(String textCoordinates) {
