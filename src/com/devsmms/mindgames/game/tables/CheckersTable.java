@@ -14,16 +14,53 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
         initTableWithPieces();
     }
 
-    public ArrayList<ArrayList<Integer>> suggestAllMoves(int x, int y) {
+    private ArrayList<ArrayList<Integer>> filterMoves(CheckersPiece p, MoveDirection dir) {
+        int[][] moves = p.calcMove();
+        ArrayList<ArrayList<Integer>> moveList = new ArrayList<>();
+        switch (dir) {
+            case ALL:
+                for(int i =0;i<moves.length;i++){
+                    ArrayList<Integer> coordinates = new ArrayList<>();
+                    coordinates.add(moves[i][0]);
+                    coordinates.add(moves[i][1]);
+                    moveList.add(coordinates);
+                }
+                break;
+            case BOTTOMTOP:
+                for(int i =0;i<moves.length;i++){
+                    ArrayList<Integer> coordinates = new ArrayList<>();
+                    if(moves[i][0] > 0){
+                        coordinates.add(moves[i][0]);
+                        coordinates.add(moves[i][1]);
+                        moveList.add(coordinates);
+                    }
+                }
+                break;
+            case TOPBOTTOM:
+                for(int i =0;i<moves.length;i++){
+                    ArrayList<Integer> coordinates = new ArrayList<>();
+                    if(moves[i][0] < 0){
+                        coordinates.add(moves[i][0]);
+                        coordinates.add(moves[i][1]);
+                        moveList.add(coordinates);
+                    }
+                }
+                break;
+        }
+        return moveList;
+    }
+
+    public ArrayList<ArrayList<Integer>> suggestAllMoves(int x, int y, MoveDirection dir) {
         if (this.table[y][x] != null) {
             CheckersPiece p = (CheckersPiece) this.table[y][x];
             if (p != null) {
-                int[][] moves = p.calcMove();
+                ArrayList<ArrayList<Integer>> moves = filterMoves(p, dir);
                 ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
-                for (int i = 0; i < moves.length; i++) {
-                    int[] coords = moves[i];
-                    int yCoords = y + coords[0];
-                    int xCoords = x + coords[1];
+
+                for (int i = 0; i < moves.size(); i++) {
+                    ArrayList<Integer> coords = moves.get(i);
+                    int yCoords = y + coords.get(0);
+                    int xCoords = x + coords.get(1);
                     if ((yCoords >= 0 && yCoords < this.table.length) && (xCoords >= 0 && xCoords < this.table.length)) {
                         CheckersPiece pieceInCoords = (CheckersPiece) this.table[yCoords][xCoords];
                         ArrayList<Integer> pos = new ArrayList<>();
@@ -43,33 +80,22 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
 
     @Override
     public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
-        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x, y);
+        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x, y, MoveDirection.ALL);
         for (ArrayList<Integer> pos : allMoves) {
             int xPos = pos.get(0);
             int yPos = pos.get(1);
 
-            if((this.table[yPos][xPos]).getColor() != (this.table[y][x]).getColor()){
+            if ((this.table[yPos][xPos]) != null && (this.table[yPos][xPos]).getColor() != (this.table[y][x]).getColor()) {
                 System.out.println("Hola buenas! soy enemigo");
-            }
-        }
-
-        ArrayList<ArrayList<Integer>> fromTopBottom = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> fromBottomTop = new ArrayList<>();
-
-        for (ArrayList<Integer> pos : allMoves) {
-            if (pos.get(0) < 0) {
-                fromTopBottom.add(pos);
-            } else {
-                fromBottomTop.add(pos);
             }
         }
 
         CheckersPiece p = (CheckersPiece) this.table[y][x];
 
         if (p.getColor() == PieceColor.WHITE) {
-            return fromBottomTop;
+            return suggestAllMoves(x,y,MoveDirection.BOTTOMTOP);
         } else {
-            return fromTopBottom;
+            return suggestAllMoves(x,y,MoveDirection.TOPBOTTOM);
         }
 
     }
@@ -114,5 +140,9 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
             firstLevel += 2;
             secondLevel += 2;
         }
+    }
+
+    private enum MoveDirection {
+        ALL, BOTTOMTOP, TOPBOTTOM;
     }
 }
