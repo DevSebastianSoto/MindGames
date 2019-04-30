@@ -26,4 +26,3 @@ public class ChessPlayer extends GamePlayer implements MotionPiecePlayer {
     public boolean handleMotion(Piece[][] table, int prevX, int prevY, int postX, int postY) {
         return false;
     }
-}
