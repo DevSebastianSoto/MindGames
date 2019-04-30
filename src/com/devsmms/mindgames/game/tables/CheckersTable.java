@@ -104,7 +104,7 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
                         } else {
                             path.add(futurePos);
                         }
-                        findPath(x3, y3, xPos, yPos, counter, path, pc);
+                        findPath(x3, y3, xPos, yPos, counter++, path, pc);
 
                     }
                 }
@@ -114,7 +114,7 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
     }
 
     private int[] calcNextPosition(int x1, int x2, int y2, PieceColor pc) {
-        MoveDirection dirY = (pc == PieceColor.BLACK) ? MoveDirection.TOPBOTTOM : MoveDirection.BOTTOMTOP;
+        MoveDirection dirY = (pc == PieceColor.WHITE) ? MoveDirection.TOPBOTTOM : MoveDirection.BOTTOMTOP;
         MoveDirection dirX = (x1 > x2) ? MoveDirection.LEFT : MoveDirection.RIGHT;
 
         int x3 = calcHorizontalPosition(x2, dirX);
@@ -126,10 +126,10 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
         int x3 = -1;
         switch (dir) {
             case LEFT:
-                x3 = x2 - 2;
+                x3 = x2 - 1;
                 break;
             case RIGHT:
-                x3 = x2 + 2;
+                x3 = x2 + 1;
                 break;
         }
         return x3;
@@ -141,10 +141,10 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
         int y3 = -1;
         switch (dir) {
             case BOTTOMTOP:
-                y3 = y2 - 2;
+                y3 = y2 - 1;
                 break;
             case TOPBOTTOM:
-                y3 = y2 + 2;
+                y3 = y2 + 1;
                 break;
         }
         return y3;
