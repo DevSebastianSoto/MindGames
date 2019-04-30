@@ -55,7 +55,7 @@ public abstract class MotionPieceConsole extends GameConsole {
     }
 
     private void movePieceByCurrentPlayer(int[] prevCoords, int[] postCoords){
-        ((MotionPiecePlayer)this.currentPlayer).handleMotion(this.controller.getGameTable().getTable(),prevCoords[0],prevCoords[1],postCoords[0],postCoords[1]);
+        ((MotionPiecePlayer)this.currentPlayer).handleMotion(this.controller.getGameTable(),prevCoords[0],prevCoords[1],postCoords[0],postCoords[1]);
     }
 
     protected int [] selectSuggestion(ArrayList<ArrayList<Integer>> suggestions) throws IOException {

@@ -43,25 +43,35 @@ public class CheckersTable extends GameTable implements MotionPieceTable {
 
     @Override
     public ArrayList<ArrayList<Integer>> suggestMove(int x, int y) {
-        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x,y);
+        ArrayList<ArrayList<Integer>> allMoves = suggestAllMoves(x, y);
+        for (ArrayList<Integer> pos : allMoves) {
+            int xPos = pos.get(0);
+            int yPos = pos.get(1);
+
+            if((this.table[yPos][xPos]).getColor() != (this.table[y][x]).getColor()){
+                System.out.println("Hola buenas! soy enemigo");
+            }
+        }
+
         ArrayList<ArrayList<Integer>> fromTopBottom = new ArrayList<>();
         ArrayList<ArrayList<Integer>> fromBottomTop = new ArrayList<>();
 
-        for(ArrayList<Integer> pos : allMoves){
-            if(pos.get(0) < 0){
+        for (ArrayList<Integer> pos : allMoves) {
+            if (pos.get(0) < 0) {
                 fromTopBottom.add(pos);
-            }else{
+            } else {
                 fromBottomTop.add(pos);
             }
         }
 
         CheckersPiece p = (CheckersPiece) this.table[y][x];
 
-        if(p.getColor() == PieceColor.WHITE){
+        if (p.getColor() == PieceColor.WHITE) {
             return fromBottomTop;
-        }else{
+        } else {
             return fromTopBottom;
         }
+
     }
 
     @Override
