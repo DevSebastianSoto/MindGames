@@ -60,21 +60,8 @@ public class ChessTable extends GameTable implements MotionPieceTable {
 	}
 
 	public void movePiece(int prex, int prey, int postx, int posty){
-		if(validMove(postx,posty)){
 			this.table[posty][postx] = this.table[prey][prex];
 			this.table[prey][prex] = null;
-		}else{
-			System.out.println("Movimiento no valido");
-		}
-	}
-
-	public boolean validMove(int x, int y){
-		for(int i = 0; i < suggestions.size(); i++){
-			if(suggestions.get(i).get(0) == x && suggestions.get(i).get(1) == y){
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public boolean isPiece(int x, int y) {
